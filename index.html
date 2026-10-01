@@ -205,6 +205,8 @@
   document.querySelectorAll('.lang button').forEach(function (b) { b.addEventListener('click', function () { lang(b.dataset.lang); }); });
   var start = 'en';
   try { start = localStorage.getItem('zp-lang') || ((navigator.language || '').slice(0, 2) === 'ro' ? 'ro' : 'en'); } catch (e) {}
+  var h = (location.hash || '').slice(1).toLowerCase();
+  if (h === 'ro' || h === 'en') start = h;
   if (start === 'ro') lang('ro');
 </script>
 </body>
