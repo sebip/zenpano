@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="zenpano: 360 panoramas from DJI Mini 2 RAW (DNG) files, on Android and Windows.">
+<title>zenpano</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+  /* Layout: one column, the panorama as the opener, then three drag-to-compare crops; same dusk palette as the app. */
+  :root{
+    color-scheme: dark;
+    --ground:#14161c; --surface:#1b1f27; --line:#2e3441;
+    --text:#e8eaf0; --dim:#98a1b2; --faint:#6b7486;
+    --accent:#f2a03d; --teal:#74d7d2;
+    --display:"Archivo","Helvetica Neue",Arial,sans-serif;
+    --ui:"IBM Plex Sans",system-ui,-apple-system,sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  body{background:var(--ground); color:var(--text); font-family:var(--ui); font-size:16px; line-height:1.55; margin:0}
+  .wrap{max-width:1080px; margin:0 auto; padding-inline:18px; padding-block:28px 64px; display:flex; flex-direction:column; gap:44px}
+  header{display:flex; align-items:center; justify-content:space-between; gap:12px}
+  .brand{font-family:var(--display); font-weight:700; font-size:24px; letter-spacing:-.01em}
+  .lang{display:flex; gap:4px; border:1px solid var(--line); border-radius:8px; padding:3px}
+  .lang button{background:none; border:0; color:var(--dim); font:500 13px var(--mono); padding:4px 9px; border-radius:6px; cursor:pointer}
+  .lang button[aria-pressed="true"]{background:var(--accent); color:#171009}
+  .lang button:focus-visible,.cmp:focus-visible{outline:2px solid var(--teal); outline-offset:2px}
+
+  .hero{display:flex; flex-direction:column; gap:18px}
+  .kicker{font-family:var(--display); font-weight:600; font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:var(--accent)}
+  h1{font-family:var(--display); font-weight:700; font-size:clamp(30px,5.2vw,52px); line-height:1.08; letter-spacing:-.02em; margin:0; text-wrap:balance; max-width:20ch}
+  .lede{color:var(--dim); font-size:17px; max-width:62ch; margin:0}
+  .pano{border-radius:12px; overflow:hidden; border:1px solid var(--line); aspect-ratio:2/1; max-width:100%; background:var(--surface)}
+  .pano img{display:block; width:100%; height:100%; object-fit:cover}
+  .cap{font-family:var(--mono); font-size:12.5px; color:var(--faint); margin:0}
+
+  .facts{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:14px 28px}
+  .fact{border-top:1px solid var(--line); padding-top:10px; min-width:0}
+  .fact b{display:block; font-family:var(--display); font-weight:600; font-size:16px}
+  .fact span{color:var(--dim); font-size:14.5px}
+
+  section h2{font-family:var(--display); font-weight:600; font-size:clamp(22px,3.2vw,30px); margin:0 0 6px; letter-spacing:-.01em; text-wrap:balance}
+  section > p{color:var(--dim); margin:0 0 20px; max-width:62ch}
+  .list{display:flex; flex-direction:column; gap:30px}
+  figure{margin:0; display:flex; flex-direction:column; gap:8px}
+
+  /* drag-to-compare: zenpano sits on top and is clipped from the left edge to the handle */
+  .cmp{position:relative; aspect-ratio:16/9; max-width:100%; border-radius:10px; overflow:hidden; border:1px solid var(--line);
+       touch-action:pan-y; user-select:none; cursor:ew-resize; --x:50%}
+  .cmp img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; pointer-events:none}
+  .cmp .top{clip-path:inset(0 0 0 var(--x))}
+  .cmp .bar{position:absolute; top:0; bottom:0; left:var(--x); width:2px; margin-left:-1px; background:var(--text); box-shadow:0 0 0 1px rgba(0,0,0,.35)}
+  .cmp .knob{position:absolute; top:50%; left:var(--x); width:40px; height:40px; margin:-20px 0 0 -20px; border-radius:50%;
+             background:var(--accent); color:#171009; display:grid; place-items:center; font:700 15px var(--mono); box-shadow:0 2px 10px rgba(0,0,0,.5)}
+  .tag{position:absolute; top:10px; font:500 12px var(--mono); padding:3px 8px; border-radius:5px; background:rgba(12,13,17,.72); color:var(--text)}
+  .tag.l{left:10px} .tag.r{right:10px; color:var(--accent)}
+  .shots{display:flex; flex-direction:column; gap:26px}
+  .shot{display:block; width:100%; max-width:100%; border-radius:10px; border:1px solid var(--line); background:var(--surface)}
+  figcaption{display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; font-family:var(--mono); font-size:12.5px; color:var(--faint)}
+
+  .cta{border:1px solid var(--line); border-radius:12px; padding:22px; display:flex; flex-direction:column; gap:10px; background:var(--surface)}
+  .cta h2{margin:0}
+  .cta p{margin:0; color:var(--dim); max-width:62ch}
+  .btn{align-self:flex-start; background:var(--accent); color:#171009; font:600 16px var(--display); text-decoration:none; padding:12px 20px; border-radius:10px}
+  .btn:focus-visible{outline:2px solid var(--teal); outline-offset:2px}
+  footer{color:var(--faint); font-size:13px; border-top:1px solid var(--line); padding-top:16px}
+  @media (prefers-reduced-motion:no-preference){ .cmp .bar,.cmp .knob,.cmp .top{transition:none} }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <div class="brand">zenpano</div>
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" id="lang-en" data-lang="en" aria-pressed="true">EN</button>
+      <button type="button" id="lang-ro" data-lang="ro" aria-pressed="false">RO</button>
+    </div>
+  </header>
+
+  <div class="hero">
+    <div class="kicker" data-t="kicker">For DJI Mini 2 · Mini 2 SE · Mini 4K</div>
+    <h1 data-t="h1">360 spheres from your drone's RAW files, with far more to work with</h1>
+    <p class="lede" data-t="lede">For every sphere the drone also saves 26 DNG files. zenpano builds the panorama from them, on your phone: far more information than the original JPGs, more freedom for a quick edit, and 16384 px wide instead of 4096.</p>
+    <div class="pano"><img src="img/pano.jpg" alt="360 panorama of a park with a lake, taken at 36 m, sky closed above"></div>
+    <p class="cap" data-t="cap1">Park, 36 m above ground · 26 DNG frames · 16384 × 8192 · made on the phone, cap closed</p>
+  </div>
+
+  <div class="facts">
+    <div class="fact"><b data-t="f1h">4× the resolution</b><span data-t="f1">16384 px wide, from the drone's RAW (DNG) frames.</span></div>
+    <div class="fact"><b data-t="f2h">No computer needed</b><span data-t="f2">Stitch, repair a seam, close the sky: all on Android.</span></div>
+    <div class="fact"><b data-t="f3h">Sky closed</b><span data-t="f3">The hole the drone leaves above itself is filled, ready for any 360 viewer.</span></div>
+  </div>
+
+  <section>
+    <h2 data-t="h2">Drag the line</h2>
+    <p data-t="p2">Same flight, same spot, zoomed in. Left: the panorama saved by the DJI Fly app. Right: zenpano.</p>
+    <div class="list">
+      <figure>
+        <div class="cmp" tabindex="0" role="slider" aria-label="Compare: houses" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+          <img src="img/case_fly.jpg" alt="Houses by the park in the DJI Fly panorama, soft when zoomed">
+          <img class="top" src="img/case_zen.jpg" alt="The same houses in zenpano, roof tiles and windows sharp">
+          <span class="tag l">DJI Fly</span><span class="tag r">zenpano</span>
+          <div class="bar"></div><div class="knob">⇆</div>
+        </div>
+        <figcaption><span data-t="c1">Houses by the park</span><span>1:1 · 1200 px crop</span></figcaption>
+      </figure>
+      <figure>
+        <div class="cmp" tabindex="0" role="slider" aria-label="Compare: town" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+          <img src="img/oras_fly.jpg" alt="Town and trees in the DJI Fly panorama">
+          <img class="top" src="img/oras_zen.jpg" alt="The same town in zenpano, with streets and cars visible">
+          <span class="tag l">DJI Fly</span><span class="tag r">zenpano</span>
+          <div class="bar"></div><div class="knob">⇆</div>
+        </div>
+        <figcaption><span data-t="c2">Streets behind the trees</span><span>1:1 · 1200 px crop</span></figcaption>
+      </figure>
+      <figure>
+        <div class="cmp" tabindex="0" role="slider" aria-label="Compare: lake" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+          <img src="img/lac_fly.jpg" alt="Lakeside path in the DJI Fly panorama, people blurred">
+          <img class="top" src="img/lac_zen.jpg" alt="The same path in zenpano, two people and a bench clearly visible">
+          <span class="tag l">DJI Fly</span><span class="tag r">zenpano</span>
+          <div class="bar"></div><div class="knob">⇆</div>
+        </div>
+        <figcaption><span data-t="c3">Lakeside path</span><span>1:1 · 1200 px crop</span></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section>
+    <h2 data-t="h3">On the phone and on the PC</h2>
+    <p data-t="p3">Choose the folder, pick the source, tap once. When the sphere is ready, repair a seam if you need to and close the sky, all in the same app.</p>
+    <div class="shots">
+      <figure>
+        <img class="shot" src="img/phone.jpg" alt="Five zenpano screens on an Android phone: choosing the set and DNG+ source, progress, the question after stitching, the zenith preview with two discs, repairing an area">
+        <figcaption><span data-t="s1">Android · choose, stitch, repair, close the sky</span></figcaption>
+      </figure>
+      <figure>
+        <img class="shot" src="img/pc.jpg" alt="zenpano on Windows: settings on the left, the finished panorama in a 360 viewer on the right, with buttons to open, repair, edit and fill the zenith">
+        <figcaption><span data-t="s2">Windows · built-in 360 viewer</span></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <div class="cta">
+    <h2 data-t="ctah">Early version, looking for feedback</h2>
+    <p data-t="ctap">zenpano runs on Android and on Windows. If you fly a Mini 2, Mini 2 SE or Mini 4K and want to try it, or have sphere sets from a Mini 3 or Mini 4 Pro to share, tell us in a short form:</p>
+    <a class="btn" href="https://forms.gle/qC6SapdYGAaqwaTi8" target="_blank" rel="noopener" data-t="btn">Give feedback · 2 minutes</a>
+  </div>
+
+  <footer data-t="foot">zenpano is an independent app, not affiliated with DJI. DJI, Mini and DJI Fly are trademarks of their owners.</footer>
+</div>
+
+<script>
+  // drag-to-compare
+  document.querySelectorAll('.cmp').forEach(function (el) {
+    function set(p) {
+      p = Math.max(0, Math.min(100, p));
+      el.style.setProperty('--x', p + '%');
+      el.setAttribute('aria-valuenow', Math.round(p));
+    }
+    function fromEvent(e) { var r = el.getBoundingClientRect(); set((e.clientX - r.left) / r.width * 100); }
+    var drag = false;
+    el.addEventListener('pointerdown', function (e) { drag = true; el.setPointerCapture(e.pointerId); fromEvent(e); });
+    el.addEventListener('pointermove', function (e) { if (drag) fromEvent(e); });
+    el.addEventListener('pointerup', function () { drag = false; });
+    el.addEventListener('pointercancel', function () { drag = false; });
+    el.addEventListener('keydown', function (e) {
+      var v = parseFloat(el.getAttribute('aria-valuenow'));
+      if (e.key === 'ArrowLeft') { set(v - 5); e.preventDefault(); }
+      if (e.key === 'ArrowRight') { set(v + 5); e.preventDefault(); }
+    });
+  });
+
+  // language
+  var RO = {
+    kicker: 'Pentru DJI Mini 2 · Mini 2 SE · Mini 4K',
+    h1: 'Sfere 360 din fișierele RAW ale dronei, cu mult mai mult material de lucru',
+    lede: 'Pentru fiecare sferă, drona salvează și 26 de fișiere DNG. zenpano face panorama din ele, pe telefon: mult mai multă informație decât în JPG-urile originale, mai multă libertate la o editare rapidă, la 16384 px lățime în loc de 4096.',
+    cap1: 'Parc, la 36 m · 26 de cadre DNG · 16384 × 8192 · făcută pe telefon, cu capacul închis',
+    f1h: 'De 4 ori rezoluția', f1: '16384 px lățime, din cadrele RAW (DNG) ale dronei.',
+    f2h: 'Fără calculator', f2: 'Lipire, reparare de cusături, cerul închis: totul pe Android.',
+    f3h: 'Cerul închis', f3: 'Gaura lăsată de dronă deasupra ei se umple, gata pentru orice viewer 360.',
+    h2: 'Trage linia',
+    p2: 'Același zbor, aceeași zonă, mărită. Stânga: panorama salvată de aplicația DJI Fly. Dreapta: zenpano.',
+    h3: 'Pe telefon și pe PC',
+    p3: 'Alegi folderul, sursa, apeși o dată. Când sfera e gata, repari o cusătură dacă e nevoie și închizi cerul, în aceeași aplicație.',
+    s1: 'Android · alegi, lipești, repari, închizi cerul',
+    s2: 'Windows · viewer 360 inclus',
+    c1: 'Case lângă parc', c2: 'Străzi printre copaci', c3: 'Aleea de lângă lac',
+    ctah: 'Versiune timpurie, caut păreri',
+    ctap: 'zenpano merge pe Android și pe Windows. Dacă zbori cu Mini 2, Mini 2 SE sau Mini 4K și vrei să-l încerci, sau ai seturi de sferă de la Mini 3 sau Mini 4 Pro, spune-ne într-un formular scurt:',
+    btn: 'Spune-ne părerea · 2 minute',
+    foot: 'zenpano este o aplicație independentă, fără legătură cu DJI. DJI, Mini și DJI Fly sunt mărci ale proprietarilor lor.'
+  };
+  var EN = {};
+  document.querySelectorAll('[data-t]').forEach(function (n) { EN[n.dataset.t] = n.textContent; });
+  function lang(l) {
+    var T = l === 'ro' ? RO : EN;
+    document.querySelectorAll('[data-t]').forEach(function (n) { if (T[n.dataset.t]) n.textContent = T[n.dataset.t]; });
+    document.documentElement.lang = l;
+    document.querySelectorAll('.lang button').forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.lang === l); });
+    try { localStorage.setItem('zp-lang', l); } catch (e) {}
+  }
+  document.querySelectorAll('.lang button').forEach(function (b) { b.addEventListener('click', function () { lang(b.dataset.lang); }); });
+  var start = 'en';
+  try { start = localStorage.getItem('zp-lang') || ((navigator.language || '').slice(0, 2) === 'ro' ? 'ro' : 'en'); } catch (e) {}
+  if (start === 'ro') lang('ro');
+</script>
+</body>
+</html>
