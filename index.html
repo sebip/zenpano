@@ -61,6 +61,12 @@
 
   .cta{border:1px solid var(--line); border-radius:12px; padding:22px; display:flex; flex-direction:column; gap:10px; background:var(--surface)}
   .cta h2{margin:0}
+  .dl{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:16px; margin-top:4px}
+  .dlcard{border:1px solid var(--line); border-radius:12px; padding:18px; background:var(--surface); display:flex; flex-direction:column; gap:10px; min-width:0}
+  .dlcard h3{font-family:var(--display); font-weight:600; font-size:18px; margin:0}
+  .dlcard p{margin:0; color:var(--dim); font-size:14px}
+  .dlcard .btn{font-size:15px; padding:10px 16px}
+  .warn{color:var(--faint); font-size:12.5px; font-family:var(--mono)}
   .cta p{margin:0; color:var(--dim); max-width:62ch}
   .btn{align-self:flex-start; background:var(--accent); color:#171009; font:600 16px var(--display); text-decoration:none; padding:12px 20px; border-radius:10px}
   .btn:focus-visible{outline:2px solid var(--teal); outline-offset:2px}
@@ -142,6 +148,23 @@
     </div>
   </section>
 
+  <section id="download">
+    <h2 data-t="dlh">Download and try it</h2>
+    <p data-t="dlp">Free trial: no limit on panoramas, but each one carries a «zenpano · trial» watermark. A licence key removes it — ask for one in the feedback form.</p>
+    <div class="dl">
+      <div class="dlcard">
+        <h3 data-t="dlan">Android · Mini 2 / 2 SE / 4K</h3>
+        <a class="btn" href="https://github.com/sebip/zenpano/releases/latest" target="_blank" rel="noopener" data-t="dlab">Download the APK</a>
+        <p class="warn" data-t="dlaw">Installs outside the Play Store: allow «install from unknown sources» when Android asks.</p>
+      </div>
+      <div class="dlcard">
+        <h3 data-t="dlwn">Windows</h3>
+        <a class="btn" href="https://github.com/sebip/zenpano/releases/latest" target="_blank" rel="noopener" data-t="dlwb">Download for Windows</a>
+        <p class="warn" data-t="dlww">A single .exe, no install. Windows SmartScreen may warn: «More info» → «Run anyway».</p>
+      </div>
+    </div>
+  </section>
+
   <div class="cta">
     <h2 data-t="ctah">Early version, looking for feedback</h2>
     <p data-t="ctap">zenpano runs on Android and on Windows. If you fly a Mini 2, Mini 2 SE or Mini 4K and want to try it, or have sphere sets from a Mini 3 or Mini 4 Pro to share, tell us in a short form:</p>
@@ -191,7 +214,13 @@
     ctah: 'Versiune timpurie, caut păreri',
     ctap: 'zenpano merge pe Android și pe Windows. Dacă zbori cu Mini 2, Mini 2 SE sau Mini 4K și vrei să-l încerci, sau ai seturi de sferă de la Mini 3 sau Mini 4 Pro, spune-ne într-un formular scurt:',
     btn: 'Spune-ne părerea · 2 minute',
-    foot: 'zenpano este o aplicație independentă, fără legătură cu DJI. DJI, Mini și DJI Fly sunt mărci ale proprietarilor lor.'
+    foot: 'zenpano este o aplicație independentă, fără legătură cu DJI. DJI, Mini și DJI Fly sunt mărci ale proprietarilor lor.',
+    dlh: 'Descarcă și încearcă',
+    dlp: 'Probă gratuită: fără limită de panorame, dar fiecare iese cu un watermark «zenpano · trial». O cheie de licență îl scoate — o ceri în formularul de feedback.',
+    dlan: 'Android · Mini 2 / 2 SE / 4K', dlab: 'Descarcă APK-ul',
+    dlaw: 'Se instalează din afara Play Store: permite «instalarea din surse necunoscute» când întreabă Android.',
+    dlwn: 'Windows', dlwb: 'Descarcă pentru Windows',
+    dlww: 'Un singur .exe, fără instalare. Windows SmartScreen poate avertiza: «Mai multe informații» → «Rulează oricum».'
   };
   var EN = {};
   document.querySelectorAll('[data-t]').forEach(function (n) { EN[n.dataset.t] = n.textContent; });
