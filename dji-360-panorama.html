@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sharper DJI 360 panoramas from the RAW (DNG) frames · Mini 2, Mini 3 Pro, Mini 4 Pro · zenpano</title>
+<meta name="description" content="Why the DJI Fly 360 sphere looks soft, where the original panorama photos are on the SD card, and how to stitch a sharp 16K sphere from the DNG files of a DJI Mini 2, Mini 3 Pro or Mini 4 Pro, on Android or Windows, with the sky closed.">
+<link rel="canonical" href="https://sebip.github.io/zenpano/dji-360-panorama.html">
+<meta property="og:title" content="Sharper DJI 360 panoramas from the RAW (DNG) frames">
+<meta property="og:description" content="Stitch a 16K sphere from your DJI Mini's original panorama photos, on the phone or the PC.">
+<meta property="og:image" content="https://sebip.github.io/zenpano/img/pano.jpg">
+<meta property="og:type" content="article">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+  :root{
+    color-scheme: dark;
+    --ground:#14161c; --surface:#1b1f27; --line:#2e3441;
+    --text:#e8eaf0; --dim:#98a1b2; --faint:#6b7486;
+    --accent:#f2a03d; --teal:#74d7d2;
+    --display:"Archivo","Helvetica Neue",Arial,sans-serif;
+    --ui:"IBM Plex Sans",system-ui,-apple-system,sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  body{background:var(--ground); color:var(--text); font-family:var(--ui); font-size:16px; line-height:1.6; margin:0}
+  .wrap{max-width:820px; margin:0 auto; padding-inline:18px; padding-block:28px 64px; display:flex; flex-direction:column; gap:40px}
+  header{display:flex; align-items:center; justify-content:space-between; gap:12px}
+  .brand{font-family:var(--display); font-weight:700; font-size:24px; letter-spacing:-.01em; color:var(--text); text-decoration:none}
+  header nav a{color:var(--dim); font:500 13px var(--mono); text-decoration:none}
+  header nav a:hover{color:var(--text)}
+  .kicker{font-family:var(--display); font-weight:600; font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:var(--accent)}
+  h1{font-family:var(--display); font-weight:700; font-size:clamp(28px,4.6vw,44px); line-height:1.1; letter-spacing:-.02em; margin:10px 0 14px; text-wrap:balance}
+  .lede{color:var(--dim); font-size:17px; margin:0}
+  section h2{font-family:var(--display); font-weight:600; font-size:clamp(21px,3vw,27px); margin:0 0 10px; letter-spacing:-.01em; text-wrap:balance}
+  section p, section li{color:var(--dim)}
+  section p{margin:0 0 12px}
+  section ul, section ol{margin:0 0 12px; padding-left:22px}
+  section li{margin-bottom:6px}
+  b, strong{color:var(--text); font-weight:600}
+  code{font-family:var(--mono); font-size:14px; background:var(--surface); border:1px solid var(--line); border-radius:5px; padding:1px 6px; color:var(--text)}
+  .pano{border-radius:12px; overflow:hidden; border:1px solid var(--line); aspect-ratio:2/1; background:var(--surface)}
+  .pano img{display:block; width:100%; height:100%; object-fit:cover}
+  .cap{font-family:var(--mono); font-size:12.5px; color:var(--faint); margin:8px 0 0}
+  table{width:100%; border-collapse:collapse; font-size:14.5px; margin:4px 0 12px}
+  th,td{text-align:left; padding:9px 10px; border-bottom:1px solid var(--line); vertical-align:top}
+  th{font-family:var(--display); font-weight:600; color:var(--text); font-size:14px}
+  td{color:var(--dim)}
+  td.num{font-family:var(--mono); white-space:nowrap}
+  .tablewrap{overflow-x:auto}
+  .cmp{position:relative; aspect-ratio:16/9; border-radius:10px; overflow:hidden; border:1px solid var(--line);
+       touch-action:pan-y; user-select:none; cursor:ew-resize; --x:50%; margin-top:6px}
+  .cmp img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; pointer-events:none}
+  .cmp .top{clip-path:inset(0 0 0 var(--x))}
+  .cmp .bar{position:absolute; top:0; bottom:0; left:var(--x); width:2px; margin-left:-1px; background:var(--text)}
+  .cmp .knob{position:absolute; top:50%; left:var(--x); width:40px; height:40px; margin:-20px 0 0 -20px; border-radius:50%;
+             background:var(--accent); color:#171009; display:grid; place-items:center; font:700 15px var(--mono)}
+  .cmp:focus-visible{outline:2px solid var(--teal); outline-offset:2px}
+  .tag{position:absolute; top:10px; font:500 12px var(--mono); padding:3px 8px; border-radius:5px; background:rgba(12,13,17,.72); color:var(--text)}
+  .tag.l{left:10px} .tag.r{right:10px; color:var(--accent)}
+  .cta{border:1px solid var(--line); border-radius:12px; padding:22px; display:flex; flex-direction:column; gap:12px; background:var(--surface)}
+  .cta h2{margin:0}
+  .cta p{margin:0; color:var(--dim)}
+  .btn{align-self:flex-start; background:var(--accent); color:#171009; font:600 16px var(--display); text-decoration:none; padding:12px 20px; border-radius:10px}
+  .btn:focus-visible{outline:2px solid var(--teal); outline-offset:2px}
+  a{color:var(--teal)}
+  footer{color:var(--faint); font-size:13px; border-top:1px solid var(--line); padding-top:16px}
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "Why is the DJI Fly 360 panorama blurry?",
+     "acceptedAnswer": {"@type": "Answer", "text": "DJI Fly saves the sphere at a reduced size: 4096 × 2048 px on the Mini 2, 8192 × 4096 on the Mini 3 Pro and 12000 × 6000 on the Mini 4 Pro, stitched from compressed photos. The drone keeps the original frames on the SD card, and a sphere stitched from them can be about 16,500 px wide."}},
+    {"@type": "Question", "name": "Why does the DJI Fly 360 sphere show doubled objects, broken lines and fuzzy patches?",
+     "acceptedAnswer": {"@type": "Answer", "text": "They come from things that move or sit close to the drone while it turns between photos: people, cars, waves, clouds, nearby trees. DJI Fly gives no way to fix them. In zenpano you mark the spot and choose the version that looks right, without touching the rest of the panorama."}},
+    {"@type": "Question", "name": "Where are the original DJI panorama photos on the SD card?",
+     "acceptedAnswer": {"@type": "Answer", "text": "In the PANORAMA folder of the card (DCIM\\PANORAMA), one subfolder per sphere. A DJI Mini 2, Mini 2 SE or Mini 4K saves 26 frames, DJI_0001 to DJI_0026, as JPG and, when RAW is enabled, also as DNG. A Mini 3 Pro or Mini 4 Pro saves its sphere frames as DNG files."}},
+    {"@type": "Question", "name": "How do I stitch a DJI 360 sphere from the DNG (RAW) files?",
+     "acceptedAnswer": {"@type": "Answer", "text": "Copy the sphere's folder from the card, open it in zenpano on Android or Windows and start the panorama. zenpano reads the DNG files directly, stitches the full-resolution sphere, lets you repair a spot by hand and fills the hole at the top, all without a PC on Android."}},
+    {"@type": "Question", "name": "How do I fill the hole at the top (zenith) of a drone 360 panorama?",
+     "acceptedAnswer": {"@type": "Answer", "text": "The drone cannot photograph straight up, so every drone sphere has a gap at the zenith. zenpano fills it right after stitching, so the panorama is ready for any 360 viewer."}},
+    {"@type": "Question", "name": "Which DJI drones does zenpano support?",
+     "acceptedAnswer": {"@type": "Answer", "text": "DJI Mini 2, Mini 2 SE and Mini 4K (JPG or DNG), and, in beta, DJI Mini 3 Pro and Mini 4 Pro (DNG). It runs on Android and Windows."}}
+  ]
+}
+</script>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="brand" href="./">zenpano</a>
+    <nav><a href="./#download">Download</a></nav>
+  </header>
+
+  <div>
+    <div class="kicker">Guide · DJI Mini 2 · Mini 3 Pro · Mini 4 Pro</div>
+    <h1>Sharper DJI 360 panoramas from the drone's RAW frames</h1>
+    <p class="lede">The sphere DJI Fly saves is small and soft when you zoom in. Your drone keeps every original frame on the SD card, and those frames hold four times the detail. Here is where they are and how to turn them into a sharp 360 panorama, on your phone or your PC.</p>
+  </div>
+
+  <div>
+    <div class="pano"><img src="img/pano.jpg" alt="360 panorama of a park with a lake stitched by zenpano from DJI Mini 2 DNG frames, sky closed above"></div>
+    <p class="cap">DJI Mini 2 · 26 DNG frames · 16384 × 8192 · stitched on an Android phone</p>
+  </div>
+
+  <section>
+    <h2>Why is the DJI Fly 360 panorama blurry?</h2>
+    <p>The sphere you see in DJI Fly is a quick preview-sized stitch. It is built from compressed photos and saved at a reduced size:</p>
+    <div class="tablewrap">
+      <table>
+        <tr><th>Drone</th><th>DJI Fly sphere</th><th>Sphere from the original frames</th></tr>
+        <tr><td>DJI Mini 2 · Mini 2 SE · Mini 4K</td><td class="num">4096 × 2048</td><td class="num">16384 × 8192</td></tr>
+        <tr><td>DJI Mini 3 Pro</td><td class="num">8192 × 4096</td><td class="num">≈ 16500 × 8250</td></tr>
+        <tr><td>DJI Mini 4 Pro</td><td class="num">12000 × 6000</td><td class="num">≈ 16500 × 8250</td></tr>
+      </table>
+    </div>
+    <p>On a phone screen the difference is small. In a 360 viewer, as soon as you zoom in on a house, a road or a person, the DJI Fly sphere turns to mush. Drag the line to compare the same spot:</p>
+    <div class="cmp" tabindex="0" role="slider" aria-label="Compare DJI Fly and zenpano" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+      <img src="img/case_fly.jpg" alt="Houses in the DJI Fly sphere, soft when zoomed">
+      <img class="top" src="img/case_zen.jpg" alt="The same houses stitched by zenpano from the DNG frames, roof tiles and windows sharp">
+      <span class="tag l">DJI Fly</span><span class="tag r">zenpano</span>
+      <div class="bar"></div><div class="knob">⇆</div>
+    </div>
+    <p class="cap">DJI Mini 2 · same flight · 1:1 crop</p>
+  </section>
+
+  <section>
+    <h2>Why does the DJI Fly sphere show doubled objects, broken lines and fuzzy patches?</h2>
+    <p>Small size is not the only problem. The DJI Fly sphere often shows:</p>
+    <ul>
+      <li><b>doubled objects</b>: a car, a tree or a roof edge appears twice, half transparent;</li>
+      <li><b>broken lines</b>: a road, a fence or the horizon jumps sideways where two photos meet;</li>
+      <li><b>fuzzy patches</b>: areas smeared or blurred while the rest of the sphere is sharp.</li>
+    </ul>
+    <p>They come from things that move or sit close to the drone while it turns: people, cars, waves, clouds, nearby trees. In DJI Fly you can only accept the result. In zenpano you mark the spot and pick the version that looks right, and the rest of the panorama stays as it was.</p>
+  </section>
+
+  <section>
+    <h2>Where are the original DJI panorama photos on the SD card?</h2>
+    <p>Every sphere the drone shoots is also saved as separate photos, in the <code>PANORAMA</code> folder of the card (<code>DCIM\PANORAMA</code>), one subfolder per sphere:</p>
+    <ul>
+      <li><b>Mini 2, Mini 2 SE, Mini 4K:</b> 26 frames, <code>DJI_0001</code> to <code>DJI_0026</code>, as JPG and, if the photo format includes RAW, also as DNG.</li>
+      <li><b>Mini 3 Pro, Mini 4 Pro:</b> the sphere frames as DNG files when the photo format is set to RAW (or JPG + RAW).</li>
+    </ul>
+    <p>Copy the whole subfolder to your phone or PC. The DNG (RAW) files are the best source: more detail in the shadows, cleaner skies and more room to edit afterwards.</p>
+  </section>
+
+  <section>
+    <h2>How do I stitch a DJI 360 sphere from the DNG files?</h2>
+    <p>With <a href="./">zenpano</a>, on Android or on Windows:</p>
+    <ol>
+      <li><b>Choose the folder</b> with the sphere's frames. zenpano recognises the drone by itself.</li>
+      <li><b>Start the panorama.</b> A Mini 3 Pro sphere of 35 DNG files takes about two minutes on a recent phone.</li>
+      <li><b>Repair a spot by hand</b> if something moved between frames, like a cloud or a car: mark the area and choose the version that looks right.</li>
+      <li><b>Close the sky.</b> The gap at the top is filled and the panorama is ready for Kuula, Google Maps, Facebook or any 360 viewer.</li>
+    </ol>
+    <p>No PC is needed: on Android everything, from the card to the finished sphere, happens on the phone.</p>
+  </section>
+
+  <section>
+    <h2>How do I fill the hole at the top of a drone 360 panorama?</h2>
+    <p>A drone cannot photograph straight up, so every drone sphere has a hole at the zenith. DJI Fly blurs it over; most desktop stitchers leave it black. zenpano fills it right after stitching, with a sky that matches the rest of the panorama, so the sphere looks complete when you look up in a viewer.</p>
+  </section>
+
+  <section>
+    <h2>Which DJI drones are supported?</h2>
+    <ul>
+      <li><b>DJI Mini 2, Mini 2 SE, Mini 4K:</b> from the JPG or the DNG frames.</li>
+      <li><b>DJI Mini 3 Pro, Mini 4 Pro (beta):</b> from the DNG frames. The panoramas come out ready to use, with colours close to the DJI Fly sphere.</li>
+    </ul>
+    <p>Have spheres from another DJI drone? Send a set through the <a href="https://forms.gle/qC6SapdYGAaqwaTi8" target="_blank" rel="noopener">feedback form</a>.</p>
+  </section>
+
+  <div class="cta">
+    <h2>Try it on your own spheres</h2>
+    <p>Free trial for Android and Windows: no limit on panoramas, each one carries a «zenpano · trial» watermark until you enter a licence key.</p>
+    <a class="btn" href="https://github.com/sebip/zenpano/releases/latest" target="_blank" rel="noopener">Download zenpano</a>
+  </div>
+
+  <footer>zenpano is an independent app, not affiliated with DJI. DJI, Mini and DJI Fly are trademarks of their owners. · <a href="./">zenpano home</a></footer>
+</div>
+<script>
+  document.querySelectorAll('.cmp').forEach(function (el) {
+    function set(p) { p = Math.max(0, Math.min(100, p)); el.style.setProperty('--x', p + '%'); el.setAttribute('aria-valuenow', Math.round(p)); }
+    function fromEvent(e) { var r = el.getBoundingClientRect(); set((e.clientX - r.left) / r.width * 100); }
+    var drag = false;
+    el.addEventListener('pointerdown', function (e) { drag = true; el.setPointerCapture(e.pointerId); fromEvent(e); });
+    el.addEventListener('pointermove', function (e) { if (drag) fromEvent(e); });
+    el.addEventListener('pointerup', function () { drag = false; });
+    el.addEventListener('keydown', function (e) {
+      var v = parseFloat(el.getAttribute('aria-valuenow'));
+      if (e.key === 'ArrowLeft') { set(v - 5); e.preventDefault(); }
+      if (e.key === 'ArrowRight') { set(v + 5); e.preventDefault(); }
+    });
+  });
+</script>
+<script data-goatcounter="https://zenpano.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
