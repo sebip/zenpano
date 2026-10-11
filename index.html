@@ -57,6 +57,7 @@
   .tag.l{left:10px} .tag.r{right:10px; color:var(--accent)}
   .shots{display:flex; flex-direction:column; gap:26px}
   .shot{display:block; width:100%; max-width:100%; border-radius:10px; border:1px solid var(--line); background:var(--surface)}
+  .shot.planet{max-width:min(100%,720px); height:auto; aspect-ratio:1/1}
   figcaption{display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; font-family:var(--mono); font-size:12.5px; color:var(--faint)}
 
   .cta{border:1px solid var(--line); border-radius:12px; padding:22px; display:flex; flex-direction:column; gap:10px; background:var(--surface)}
@@ -158,6 +159,15 @@
   </section>
 
   <section>
+    <h2 data-t="ph">Little planet</h2>
+    <p data-t="pp">One tap after the sphere is done: the ground in the middle, the sky around it. It is made as fine as the panorama itself, about 16000 × 16000 px, so you can still zoom in.</p>
+    <figure>
+      <img class="shot planet" src="img/planeta.jpg" width="1400" height="1400" loading="lazy" alt="A little planet made from a 360 sphere: a mountain lake in the middle, autumn forest around it and the sky on the outside">
+      <figcaption><span data-t="pc">Mountain lake · DJI Mini 2 · made from the finished sphere</span></figcaption>
+    </figure>
+  </section>
+
+  <section>
     <h2 data-t="h3">On the phone and on the PC</h2>
     <p data-t="p3">Choose the folder, pick the source, tap once. When the sphere is ready, repair a seam if you need to and close the sky, all in the same app.</p>
     <div class="shots">
@@ -244,6 +254,9 @@
     rh: 'Repari singur o cusătură',
     rp: 'Când două cadre nu se întâlnesc curat, marchezi locul și alegi varianta care arată bine. Stânga: cum a ieșit lipirea. Dreapta: după o reparație, făcută în aplicație.',
     tb: 'Înainte', ta: 'După reparație', c4: 'Aleea din parc',
+    ph: 'Planetă mică',
+    pp: 'O apăsare după ce sfera e gata: solul în mijloc, cerul în jur. Iese la finețea panoramei, circa 16000 × 16000 px, deci poți mări în continuare.',
+    pc: 'Lac de munte · DJI Mini 2 · făcută din sfera terminată',
     ctah: 'Versiune timpurie, caut păreri',
     ctap: 'zenpano merge pe Android și pe Windows. Dacă zbori cu Mini 2, Mini 2 SE, Mini 4K, Mini 3 Pro, Mini 4 Pro sau Mavic Air și vrei să-l încerci, sau ai seturi de sferă de la Mini 3, Mini 3 Pro sau Mini 4 Pro, spune-ne într-un formular scurt:',
     btn: 'Spune-ne părerea · 2 minute',
