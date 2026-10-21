@@ -80,6 +80,8 @@
      "acceptedAnswer": {"@type": "Answer", "text": "Copy the sphere's folder from the card, open it in zenpano on Android or Windows and start the panorama. zenpano reads the DNG files directly, stitches the full-resolution sphere, lets you repair a spot by hand and fills the hole at the top, all without a PC on Android."}},
     {"@type": "Question", "name": "How do I fill the hole at the top (zenith) of a drone 360 panorama?",
      "acceptedAnswer": {"@type": "Answer", "text": "The drone cannot photograph straight up, so every drone sphere has a gap at the zenith. zenpano fills it right after stitching, so the panorama is ready for any 360 viewer."}},
+    {"@type": "Question", "name": "Why does the zenpano panorama look less contrasty than the DJI Fly sphere?",
+     "acceptedAnswer": {"@type": "Answer", "text": "On purpose. zenpano keeps the detail in the shadows and the highlights instead of baking in a strong look, so you have room to edit the panorama the way you like. For a punchier result, use Edit in the Windows app (Dehaze, Clarity), your phone's gallery or any photo editor."}},
     {"@type": "Question", "name": "Which DJI drones does zenpano support?",
      "acceptedAnswer": {"@type": "Answer", "text": "DJI Mini 2, Mini 2 SE and Mini 4K (JPG or DNG, also their Wide-angle and 180° panoramas), DJI Mini 4 Pro (DNG) and DJI Mavic Air (DNG or JPG), and, in beta, DJI Mini 3 Pro, Air 3 and Air 2S (DNG). It runs on Android and Windows."}}
   ]
@@ -161,6 +163,11 @@
   <section>
     <h2>How do I fill the hole at the top of a drone 360 panorama?</h2>
     <p>A drone cannot photograph straight up, so every drone sphere has a hole at the zenith. DJI Fly blurs it over; most desktop stitchers leave it black. zenpano fills it right after stitching, with a sky that matches the rest of the panorama, so the sphere looks complete when you look up in a viewer.</p>
+  </section>
+
+  <section>
+    <h2>Why does the zenpano panorama look less contrasty than the DJI Fly sphere?</h2>
+    <p>On purpose. The drone's own sphere comes out with a strong, finished look, and whatever it clipped in the shadows or the sky is gone. zenpano keeps that detail instead, so the panorama has room for your own edit. For a punchier result, use <b>Edit</b> in the Windows app (Dehaze, Clarity), your phone's gallery or any photo editor you like.</p>
   </section>
 
   <section>
