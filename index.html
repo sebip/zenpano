@@ -63,6 +63,9 @@
   .shots{display:flex; flex-direction:column; gap:26px}
   .shot{display:block; width:100%; max-width:100%; border-radius:10px; border:1px solid var(--line); background:var(--surface)}
   .shot.planet{max-width:min(100%,720px); height:auto; aspect-ratio:1/1}
+  .pair{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr)); gap:14px}
+  .pair figure{min-width:0}
+  .shot.crop{height:auto}
   figcaption{display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; font-family:var(--mono); font-size:12.5px; color:var(--faint)}
 
   .cta{border:1px solid var(--line); border-radius:12px; padding:22px; display:flex; flex-direction:column; gap:10px; background:var(--surface)}
@@ -174,6 +177,25 @@
   </section>
 
   <section>
+    <h2 data-t="ch">Wide-angle and other formats from the sphere</h2>
+    <p data-t="cp">After the sphere is done, Crop gives you a wide-angle photo in any direction you drag, with straight lines kept straight, a 180° band, or a rectangle in the format you choose. The panorama itself stays as it is.</p>
+    <div class="pair">
+      <figure>
+        <img class="shot crop" src="img/crop_wide_sphere.jpg" width="1600" height="853" loading="lazy" alt="zenpano Crop window: the park sphere with an orange outline showing the wide-angle view to be cut">
+        <figcaption><span data-t="cc1">Drag to choose the direction</span></figcaption>
+      </figure>
+      <figure>
+        <img class="shot crop" src="img/crop_wide_result.jpg" width="1600" height="853" loading="lazy" alt="The wide-angle preview: the park, the path and the houses on the hill as a straight-line photo">
+        <figcaption><span data-t="cc2">The wide-angle photo</span><span>7773 × 6032 px</span></figcaption>
+      </figure>
+    </div>
+    <figure>
+      <img class="shot crop" src="img/crop_16x9.jpg" width="1600" height="853" loading="lazy" alt="zenpano Crop window with the 16:9 format selected and a rectangle over the park panorama">
+      <figcaption><span data-t="cc3">A 16:9 rectangle from the panorama</span><span>Full · 2:1 · 16:9 · 3:2 · 4:3 · 1:1</span></figcaption>
+    </figure>
+  </section>
+
+  <section>
     <h2 data-t="h3">On the phone and on the PC</h2>
     <p data-t="p3">Choose the folder, pick the source, tap once. When the sphere is ready, repair a seam if you need to and close the sky, all in the same app.</p>
     <div class="shots">
@@ -264,6 +286,9 @@
     ph: 'Planetă mică',
     pp: 'O apăsare după ce sfera e gata: solul în mijloc, cerul în jur. Iese la finețea panoramei, circa 16000 × 16000 px, deci poți mări în continuare.',
     pc: 'Același parc · DJI Mini 2 · făcută din sfera terminată',
+    ch: 'Unghi larg și alte formate din sferă',
+    cp: 'După ce sfera e gata, Decupează îți dă o fotografie cu unghi larg în orice direcție tragi, cu liniile drepte păstrate drepte, o bandă de 180° sau un dreptunghi în formatul ales. Panorama rămâne neatinsă.',
+    cc1: 'Tragi ca să alegi direcția', cc2: 'Fotografia cu unghi larg', cc3: 'Un dreptunghi 16:9 din panoramă',
     ctah: 'Versiune timpurie, caut păreri',
     ctap: 'zenpano merge pe Android și pe Windows. Dacă zbori cu Mini 2, Mini 2 SE, Mini 4K, Mini 4 Pro sau Mavic Air, ori cu Mini 3 Pro, Air 3 sau Air 2S (în beta), și vrei să-l încerci, sau ai seturi de sferă de la altă dronă DJI, spune-ne într-un formular scurt:',
     btn: 'Spune-ne părerea · 2 minute',
