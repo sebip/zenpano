@@ -31,6 +31,12 @@
   .lang button{background:none; border:0; color:var(--dim); font:500 13px var(--mono); padding:4px 9px; border-radius:6px; cursor:pointer}
   .lang button[aria-pressed="true"]{background:var(--accent); color:#171009}
   .lang button:focus-visible,.cmp:focus-visible{outline:2px solid var(--teal); outline-offset:2px}
+  .hright{display:flex; align-items:center; gap:14px}
+  .buylink{color:var(--accent); font:600 14px var(--display); text-decoration:none}
+  .buylink:hover,.buylink:focus-visible{text-decoration:underline}
+  .price-line{color:var(--text); margin:0 0 16px; max-width:62ch}
+  footer nav{display:flex; gap:14px; flex-wrap:wrap; margin-bottom:8px}
+  footer nav a{color:var(--dim)}
 
   .hero{display:flex; flex-direction:column; gap:18px}
   .kicker{font-family:var(--display); font-weight:600; font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:var(--accent)}
@@ -89,9 +95,12 @@
 <div class="wrap">
   <header>
     <div class="brand">zenpano</div>
-    <div class="lang" role="group" aria-label="Language">
-      <button type="button" id="lang-en" data-lang="en" aria-pressed="true">EN</button>
-      <button type="button" id="lang-ro" data-lang="ro" aria-pressed="false">RO</button>
+    <div class="hright">
+      <a class="buylink" href="buy.html" data-t="nbuy">Buy a licence</a>
+      <div class="lang" role="group" aria-label="Language">
+        <button type="button" id="lang-en" data-lang="en" aria-pressed="true">EN</button>
+        <button type="button" id="lang-ro" data-lang="ro" aria-pressed="false">RO</button>
+      </div>
     </div>
   </header>
 
@@ -212,7 +221,8 @@
 
   <section id="download">
     <h2 data-t="dlh">Download and try it</h2>
-    <p data-t="dlp">Free trial: no limit on panoramas, but each one carries a «zenpano · trial» watermark. A licence key removes it. A key is made for one device, a phone or a computer: open «Activate» in the app, copy the device code shown there and send it in the feedback form.</p>
+    <p data-t="dlp">Free trial: no limit on panoramas, but each one carries a «zenpano · trial» watermark. A licence key removes it. A key is made for one device, a phone or a computer: open «Activate» in the app, copy the device code shown there and enter it on the buy page.</p>
+    <p class="price-line"><span data-t="price">Licence: €19 for one device (Windows PC or Android phone), €29 for PC + phone. One payment, no subscription.</span> <a href="buy.html" style="color:var(--teal)" data-t="pricel">Buy a licence →</a></p>
     <div class="dl">
       <div class="dlcard">
         <h3 data-t="dlan">Android · Mini 2 / 2 SE / 4K / Mini 4 Pro / Mavic Air · beta: Mini 3 / 3 Pro / Air 3 / Air 2S / Mini 5 Pro / Mavic Pro</h3>
@@ -239,7 +249,12 @@
   </div>
 
   <p class="cap"><a href="dji-360-panorama.html" style="color:var(--teal)">Guide: sharper DJI 360 panoramas from the RAW (DNG) frames →</a></p>
-  <footer data-t="foot">zenpano is an independent app, not affiliated with DJI. DJI, Mini and DJI Fly are trademarks of their owners.</footer>
+  <footer>
+    <nav aria-label="Footer">
+      <a href="buy.html" data-t="nbuy2">Buy</a><a href="terms.html" data-t="nterms">Terms</a><a href="refund.html" data-t="nref">Refund policy</a><a href="privacy.html" data-t="npriv">Privacy</a>
+    </nav>
+    <span data-t="foot">zenpano is an independent app, not affiliated with DJI. DJI, Mini and DJI Fly are trademarks of their owners.</span>
+  </footer>
 </div>
 
 <script>
@@ -299,7 +314,10 @@
     abh: 'De ce l-am făcut',
     abp: 'Zbor cu drone DJI de ani de zile: peste 1.500 de zboruri, peste 260 de ore în aer, peste 100.000 de poze, cam 90% făcute pentru sfere 360. Am început cu un Spark, înainte ca DJI să aibă modul photosphere, și de atunci am lipit mii de sfere. Sfera din aplicație nu mi-a fost niciodată destul de clară, așa că am făcut unealta pe care o voiam pentru mine.',
     dlh: 'Descarcă și încearcă',
-    dlp: 'Probă gratuită: fără limită de panorame, dar fiecare iese cu un watermark «zenpano · trial». O cheie de licență îl scoate. Cheia se face pentru un singur dispozitiv, telefon sau calculator: deschizi «Activează» în aplicație, copiezi codul dispozitivului afișat acolo și îl trimiți în formularul de feedback.',
+    dlp: 'Probă gratuită: fără limită de panorame, dar fiecare iese cu un watermark «zenpano · trial». O cheie de licență îl scoate. Cheia se face pentru un singur dispozitiv, telefon sau calculator: deschizi «Activează» în aplicație, copiezi codul dispozitivului afișat acolo și îl introduci pe pagina de cumpărare.',
+    price: 'Licența: 19 € pentru un dispozitiv (PC cu Windows sau telefon Android), 29 € pentru PC + telefon. O singură plată, fără abonament.',
+    pricel: 'Cumpără o licență →', nbuy: 'Cumpără o licență',
+    nbuy2: 'Cumpără', nterms: 'Termeni', nref: 'Politica de rambursare', npriv: 'Confidențialitate',
     dlan: 'Android · Mini 2 / 2 SE / 4K / Mini 4 Pro / Mavic Air · beta: Mini 3 / 3 Pro / Air 3 / Air 2S / Mini 5 Pro / Mavic Pro', dlab: 'Descarcă APK-ul',
     dlaw: 'Se instalează din afara Play Store: permite «instalarea din surse necunoscute» când întreabă Android.',
     dlwn: 'Windows · Mini 2 / 2 SE / 4K / Mini 4 Pro / Mavic Air · beta: Mini 3 / 3 Pro / Air 3 / Air 2S / Mini 5 Pro / Mavic Pro', dlwb: 'Descarcă pentru Windows',

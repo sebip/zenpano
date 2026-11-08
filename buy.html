@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>zenpano · Buy a licence</title>
+<meta name="description" content="Buy a zenpano licence key: one device (Windows PC or Android phone) or PC + phone, one-time payment.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+  /* Same dusk palette and type as index.html. DRAFT: Paddle SANDBOX, nothing here is live. */
+  :root{
+    color-scheme: dark;
+    --ground:#14161c; --surface:#1b1f27; --line:#2e3441;
+    --text:#e8eaf0; --dim:#98a1b2; --faint:#6b7486;
+    --accent:#f2a03d; --teal:#74d7d2; --bad:#ff8a7a;
+    --display:"Archivo","Helvetica Neue",Arial,sans-serif;
+    --ui:"IBM Plex Sans",system-ui,-apple-system,sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  body{background:var(--ground); color:var(--text); font-family:var(--ui); font-size:16px; line-height:1.55; margin:0}
+  .wrap{max-width:1080px; margin:0 auto; padding-inline:18px; padding-block:28px 64px; display:flex; flex-direction:column; gap:36px}
+  header{display:flex; align-items:center; justify-content:space-between; gap:12px}
+  .brand{font-family:var(--display); font-weight:700; font-size:24px; letter-spacing:-.01em; color:var(--text); text-decoration:none}
+  .lang{display:flex; gap:4px; border:1px solid var(--line); border-radius:8px; padding:3px}
+  .lang button{background:none; border:0; color:var(--dim); font:500 13px var(--mono); padding:4px 9px; border-radius:6px; cursor:pointer}
+  .lang button[aria-pressed="true"]{background:var(--accent); color:#171009}
+  .lang button:focus-visible{outline:2px solid var(--teal); outline-offset:2px}
+  .sandbox{font:500 12.5px var(--mono); color:#171009; background:var(--teal); border-radius:8px; padding:8px 12px; align-self:flex-start}
+  h1{font-family:var(--display); font-weight:700; font-size:clamp(28px,4.6vw,44px); line-height:1.1; letter-spacing:-.02em; margin:0; max-width:22ch; text-wrap:balance}
+  .lede{color:var(--dim); font-size:17px; max-width:62ch; margin:0}
+  .plans{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr)); gap:16px}
+  .plan{border:1px solid var(--line); border-radius:12px; padding:20px; background:var(--surface); display:flex; flex-direction:column; gap:12px; min-width:0}
+  .plan.pick{border-color:var(--accent)}
+  .plan h2{font-family:var(--display); font-weight:600; font-size:20px; margin:0}
+  .price{font-family:var(--display); font-weight:700; font-size:34px; line-height:1}
+  .price small{font:400 13px var(--ui); color:var(--faint); margin-left:6px}
+  .plan p{margin:0; color:var(--dim); font-size:14.5px}
+  label{display:flex; flex-direction:column; gap:6px; font-size:14px; color:var(--dim)}
+  input[type=text]{background:var(--ground); color:var(--text); border:1px solid var(--line); border-radius:8px; padding:10px 12px;
+                   font:500 16px var(--mono); letter-spacing:.06em; text-transform:uppercase; width:100%}
+  input[type=text]:focus-visible{outline:2px solid var(--teal); outline-offset:1px}
+  input[aria-invalid=true]{border-color:var(--bad)}
+  .err{color:var(--bad); font-size:13px; min-height:1.2em; margin:0}
+  .btn{align-self:flex-start; background:var(--accent); color:#171009; font:600 16px var(--display); border:0; padding:12px 20px; border-radius:10px; cursor:pointer}
+  .btn:focus-visible{outline:2px solid var(--teal); outline-offset:2px}
+  .btn[disabled]{opacity:.5; cursor:wait}
+  .how{border-top:1px solid var(--line); padding-top:18px; display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px 28px}
+  .how div{min-width:0}
+  .how b{display:block; font-family:var(--display); font-weight:600}
+  .how span{color:var(--dim); font-size:14.5px}
+  .done{border:1px solid var(--teal); border-radius:12px; padding:18px; background:var(--surface)}
+  .done[hidden]{display:none}
+  .done h2{font-family:var(--display); margin:0 0 6px; font-size:20px}
+  .done p{margin:0; color:var(--dim)}
+  .consent{border:1px solid var(--line); border-radius:12px; padding:14px 16px; background:var(--surface); display:flex; gap:12px; align-items:flex-start}
+  .consent input{width:20px; height:20px; margin:2px 0 0; accent-color:var(--accent); flex:none}
+  .consent label{color:var(--text); font-size:14.5px; display:block}
+  .consent.need{border-color:var(--bad)}
+  footer{color:var(--faint); font-size:13px; border-top:1px solid var(--line); padding-top:16px; display:flex; flex-direction:column; gap:8px}
+  footer nav{display:flex; gap:14px; flex-wrap:wrap}
+  footer a{color:var(--dim)}
+  .lede a, .consent a{color:var(--teal)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="brand" href="./">zenpano</a>
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" data-lang="en" aria-pressed="true">EN</button>
+      <button type="button" data-lang="ro" aria-pressed="false">RO</button>
+    </div>
+  </header>
+
+  <p class="sandbox" id="soon" hidden data-t="soon">Licence sales open soon. Until then the trial is free to use, with no limits.</p>
+  <p class="sandbox" id="sbx" hidden data-t="sb">TEST PAGE · Paddle sandbox · no real payments. Test card 4242 4242 4242 4242, any future date, CVC 100.</p>
+
+  <div>
+    <h1 data-t="h1">Remove the watermark: buy a licence key</h1>
+    <p class="lede" data-t="lede">One payment, no subscription. The key works offline and is made for your device, so we need its code: open «Activate» in zenpano and copy the device code shown there.</p>
+  </div>
+
+  <div class="done" id="done" hidden role="status">
+    <h2 data-t="okh">Thank you, the payment went through</h2>
+    <p data-t="okp">Your licence key will arrive by e-mail, usually within a day. Paste it in «Activate» in zenpano. If nothing arrives in 48 hours, check spam and then write to us.</p>
+  </div>
+
+  <div class="consent" id="consentbox">
+    <input type="checkbox" id="consent">
+    <label for="consent"><span data-t="cons">I have tried the free trial. I ask for my licence key to be delivered immediately and I understand that I then lose my 14-day right of withdrawal.</span>
+      <a href="terms.html" data-t="lt">Terms</a> · <a href="refund.html" data-t="lr">Refund policy</a></label>
+  </div>
+
+  <div class="plans">
+    <form class="plan" data-plan="one" novalidate>
+      <h2 data-t="p1h">One device</h2>
+      <div class="price">€19<small data-t="vat">VAT included in the EU</small></div>
+      <p data-t="p1p">A Windows PC or an Android phone.</p>
+      <label><span data-t="code">Device code (from «Activate»)</span>
+        <input type="text" name="code" autocomplete="off" spellcheck="false" placeholder="W1234-ABCDE" maxlength="16" aria-describedby="e1">
+      </label>
+      <p class="err" id="e1" aria-live="polite"></p>
+      <button class="btn" type="submit" data-t="buy">Buy · €19</button>
+    </form>
+
+    <form class="plan pick" data-plan="both" novalidate>
+      <h2 data-t="p2h">PC + phone</h2>
+      <div class="price">€29<small data-t="vat">VAT included in the EU</small></div>
+      <p data-t="p2p">One Windows PC and one Android phone: two keys.</p>
+      <label><span data-t="codew">Windows device code (starts with W)</span>
+        <input type="text" name="codew" autocomplete="off" spellcheck="false" placeholder="W1234-ABCDE" maxlength="16" aria-describedby="e2">
+      </label>
+      <label><span data-t="codea">Android device code (starts with A)</span>
+        <input type="text" name="codea" autocomplete="off" spellcheck="false" placeholder="A1234-ABCDE" maxlength="16" aria-describedby="e2">
+      </label>
+      <p class="err" id="e2" aria-live="polite"></p>
+      <button class="btn" type="submit" data-t="buy2">Buy · €29</button>
+    </form>
+  </div>
+
+  <div class="how">
+    <div><b data-t="w1h">Try first</b><span data-t="w1p">The trial has no limit on panoramas; only the watermark differs.</span></div>
+    <div><b data-t="w2h">Changed your phone or PC?</b><span data-t="w2p">Write to us with the new device code: a new key is free.</span></div>
+    <div><b data-t="w3h">Payment by Paddle</b><span data-t="w3p">Paddle.com is the reseller: it takes the payment, handles VAT and sends the receipt.</span></div>
+  </div>
+
+  <footer>
+    <nav aria-label="Footer">
+      <a href="./" data-t="nh">Home</a><a href="terms.html" data-t="lt">Terms</a><a href="refund.html" data-t="lr">Refund policy</a><a href="privacy.html" data-t="lp">Privacy</a>
+    </nav>
+    <span data-t="foot">zenpano is an independent app, not affiliated with DJI. DJI, Mini and DJI Fly are trademarks of their owners.</span>
+  </footer>
+</div>
+
+<script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
+<script>
+  // env 'sandbox' shows the test banner; an empty token puts the page in "sales open soon" mode (buttons off, no Paddle calls).
+  // For live: env 'live', the live client-side token and the live price ids.
+  var PADDLE = {
+    env: 'live',
+    token: '',          // client-side token: public by design
+    price: { one: '',      // zenpano licence - 1 device, 19 EUR
+             both: '' }    // zenpano licence - PC + phone, 29 EUR
+  };
+
+  var T = {
+    ro: {
+      sb: 'PAGINĂ DE TEST · Paddle sandbox · fără plăți reale. Card de test 4242 4242 4242 4242, orice dată viitoare, CVC 100.',
+      h1: 'Scoate watermark-ul: cumpără o cheie de licență',
+      lede: 'O singură plată, fără abonament. Cheia merge fără internet și se face pentru dispozitivul tău, așa că avem nevoie de codul lui: deschide «Activează» în zenpano și copiază codul dispozitivului afișat acolo.',
+      okh: 'Mulțumim, plata a trecut',
+      okp: 'Cheia de licență vine pe e-mail, de obicei în aceeași zi. O lipești în «Activează» în zenpano. Dacă nu vine în 48 de ore, uită-te în spam și apoi scrie-ne.',
+      p1h: 'Un dispozitiv', p1p: 'Un PC cu Windows sau un telefon Android.', vat: 'TVA inclus în UE',
+      code: 'Codul dispozitivului (din «Activează»)', buy: 'Cumpără · 19 €',
+      p2h: 'PC + telefon', p2p: 'Un PC cu Windows și un telefon Android: două chei.',
+      codew: 'Codul PC-ului Windows (începe cu W)', codea: 'Codul telefonului Android (începe cu A)', buy2: 'Cumpără · 29 €',
+      w1h: 'Încearcă întâi', w1p: 'Proba nu are limită de panorame; diferă doar watermark-ul.',
+      w2h: 'Ți-ai schimbat telefonul sau PC-ul?', w2p: 'Scrie-ne cu noul cod de dispozitiv: cheia nouă e gratuită.',
+      w3h: 'Plata prin Paddle', w3p: 'Paddle.com e revânzătorul: încasează plata, se ocupă de TVA și trimite chitanța.',
+      foot: 'zenpano este o aplicație independentă, neafiliată cu DJI. DJI, Mini și DJI Fly sunt mărci ale proprietarilor lor.',
+      e_code: 'Codul are 10 caractere și începe cu W (Windows) sau A (Android), de exemplu W1234-ABCDE.',
+      e_w: 'Codul PC-ului începe cu W.', e_a: 'Codul telefonului începe cu A.',
+      e_pay: 'Plata nu a putut porni. Reîncarcă pagina și încearcă din nou.',
+      cons: 'Am încercat proba gratuită. Cer ca cheia de licență să-mi fie livrată imediat și înțeleg că astfel pierd dreptul de retragere de 14 zile.',
+      lt: 'Termeni', lr: 'Politica de rambursare', lp: 'Confidențialitate', nh: 'Acasă',
+      e_cons: 'Bifează mai sus acordul pentru livrarea imediată a cheii.',
+      soon: 'Vânzarea licențelor începe în curând. Până atunci proba e gratuită, fără limite.',
+      soonb: 'În curând'
+    },
+    en: {
+      e_code: 'The code has 10 characters and starts with W (Windows) or A (Android), for example W1234-ABCDE.',
+      e_w: 'The PC code starts with W.', e_a: 'The phone code starts with A.',
+      e_pay: 'The payment could not start. Reload the page and try again.',
+      e_cons: 'Please tick the box above to agree to immediate delivery of the key.',
+      soonb: 'Available soon'
+    }
+  };
+  var LIVE = !!PADDLE.token;
+  document.getElementById('sbx').hidden = PADDLE.env !== 'sandbox' || !LIVE;
+  document.getElementById('soon').hidden = LIVE;
+  if (!LIVE) document.querySelectorAll('form.plan .btn').forEach(function (b) { b.disabled = true; b.dataset.t = 'soonb'; b.textContent = T.en.soonb; });
+  var cur = 'en';
+  document.querySelectorAll('[data-t]').forEach(function (el) { T.en[el.dataset.t] = el.textContent; });
+  function t(k) { return (T[cur] && T[cur][k]) || T.en[k] || k; }
+  function lang(l) {
+    cur = l;
+    document.querySelectorAll('[data-t]').forEach(function (el) { el.textContent = t(el.dataset.t); });
+    document.documentElement.lang = l;
+    document.querySelectorAll('.lang button').forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.lang === l); });
+    try { localStorage.setItem('zp-lang', l); } catch (e) {}
+  }
+  document.querySelectorAll('.lang button').forEach(function (b) { b.addEventListener('click', function () { lang(b.dataset.lang); }); });
+  var start = 'en';
+  try { start = localStorage.getItem('zp-lang') || ((navigator.language || '').slice(0, 2) === 'ro' ? 'ro' : 'en'); } catch (e) {}
+  if (start === 'ro') lang('ro');
+
+  // Device code: same rules as normalize_device_code() in the app (Crockford base32, 10 chars, W or A first).
+  function normCode(s) {
+    var d = '0123456789ABCDEFGHJKMNPQRSTVWXYZ', out = '';
+    s = (s || '').toUpperCase().replace(/[\s-]/g, '').replace(/O/g, '0').replace(/[IL]/g, '1');
+    for (var i = 0; i < s.length; i++) { if (d.indexOf(s[i]) < 0) return ''; out += s[i]; }
+    if (out.length !== 10 || (out[0] !== 'W' && out[0] !== 'A')) return '';
+    return out.slice(0, 5) + '-' + out.slice(5);
+  }
+
+  var ready = false;
+  if (LIVE) try {
+    if (PADDLE.env === 'sandbox') Paddle.Environment.set('sandbox');
+    Paddle.Initialize({
+      token: PADDLE.token,
+      eventCallback: function (ev) {
+        if (ev && ev.name === 'checkout.completed') {
+          document.getElementById('done').hidden = false;
+          setTimeout(function () { try { Paddle.Checkout.close(); } catch (e) {} }, 1500);
+          document.getElementById('done').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }
+    });
+    ready = true;
+  } catch (e) { ready = false; }
+
+  document.querySelectorAll('form.plan').forEach(function (f) {
+    f.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var err = f.querySelector('.err'), data = {}, bad = null;
+      f.querySelectorAll('input').forEach(function (i) { i.removeAttribute('aria-invalid'); });
+      err.textContent = '';
+      if (f.dataset.plan === 'one') {
+        var c = normCode(f.code.value);
+        if (!c) { bad = [f.code, 'e_code']; } else { data.device_code = c; f.code.value = c; }
+      } else {
+        var w = normCode(f.codew.value), a = normCode(f.codea.value);
+        if (!w) bad = [f.codew, 'e_code'];
+        else if (w[0] !== 'W') bad = [f.codew, 'e_w'];
+        else if (!a) bad = [f.codea, 'e_code'];
+        else if (a[0] !== 'A') bad = [f.codea, 'e_a'];
+        else { data.device_code_windows = w; data.device_code_android = a; f.codew.value = w; f.codea.value = a; }
+      }
+      if (bad) { bad[0].setAttribute('aria-invalid', 'true'); bad[0].focus(); err.textContent = t(bad[1]); return; }
+      var cb = document.getElementById('consent'), box = document.getElementById('consentbox');
+      box.classList.remove('need');
+      if (!cb.checked) { box.classList.add('need'); cb.focus(); err.textContent = t('e_cons'); return; }
+      if (!ready) { err.textContent = t('e_pay'); return; }
+      data.plan = f.dataset.plan;
+      data.withdrawal_waiver = 'yes ' + new Date().toISOString();   // proof of the express consent (EU digital content)
+      try {
+        Paddle.Checkout.open({
+          items: [{ priceId: PADDLE.price[f.dataset.plan], quantity: 1 }],
+          customData: data,
+          settings: { displayMode: 'overlay', theme: 'dark', locale: cur === 'ro' ? 'ro' : 'en', allowLogout: false }
+        });
+      } catch (x) { err.textContent = t('e_pay'); }
+    });
+  });
+</script>
+</body>
+</html>
