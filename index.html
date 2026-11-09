@@ -34,6 +34,8 @@
   .hright{display:flex; align-items:center; gap:14px}
   .buylink{color:var(--accent); font:600 14px var(--display); text-decoration:none}
   .buylink:hover,.buylink:focus-visible{text-decoration:underline}
+  .triallink{color:var(--teal); font:600 14px var(--display); text-decoration:none}
+  .triallink:hover,.triallink:focus-visible{text-decoration:underline}
   .price-line{color:var(--text); margin:0 0 16px; max-width:62ch}
   footer nav{display:flex; gap:14px; flex-wrap:wrap; margin-bottom:8px}
   footer nav a{color:var(--dim)}
@@ -96,6 +98,7 @@
   <header>
     <div class="brand">zenpano</div>
     <div class="hright">
+      <a class="triallink" href="#download" data-t="ntrial">Free trial</a>
       <a class="buylink" href="buy.html" data-t="nbuy">Buy a licence</a>
       <div class="lang" role="group" aria-label="Language">
         <button type="button" id="lang-en" data-lang="en" aria-pressed="true">EN</button>
@@ -316,7 +319,7 @@
     dlh: 'Descarcă și încearcă',
     dlp: 'Probă gratuită: fără limită de panorame, dar fiecare iese cu un watermark «zenpano · trial». O cheie de licență îl scoate. Cheia se face pentru un singur dispozitiv, telefon sau calculator: deschizi «Activează» în aplicație, copiezi codul dispozitivului afișat acolo și îl introduci pe pagina de cumpărare.',
     price: 'Licența: 19 € pentru un dispozitiv (PC cu Windows sau telefon Android), 29 € pentru PC + telefon. O singură plată, fără abonament.',
-    pricel: 'Cumpără o licență →', nbuy: 'Cumpără o licență',
+    pricel: 'Cumpără o licență →', nbuy: 'Cumpără o licență', ntrial: 'Probă gratuită',
     nbuy2: 'Cumpără', nterms: 'Termeni', nref: 'Politica de rambursare', npriv: 'Confidențialitate', ncontact: 'Contact',
     dlan: 'Android · Mini 2 / 2 SE / 4K / Mini 4 Pro / Mavic Air · beta: Mini 3 / 3 Pro / Air 3 / Air 2S / Mini 5 Pro / Mavic Pro', dlab: 'Descarcă APK-ul',
     dlaw: 'Se instalează din afara Play Store: permite «instalarea din surse necunoscute» când întreabă Android.',
