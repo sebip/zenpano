@@ -206,6 +206,17 @@
     return out.slice(0, 5) + '-' + out.slice(5);
   }
 
+  // Opened from «Buy a licence» in the app: ?code=W1234-ABCDE fills in this device's code.
+  try {
+    var given = normCode(new URLSearchParams(location.search).get('code'));
+    if (given) {
+      var one = document.querySelector('form.plan [name=code]');
+      var both = document.querySelector('form.plan [name=' + (given[0] === 'W' ? 'codew' : 'codea') + ']');
+      if (one) one.value = given;
+      if (both) both.value = given;
+    }
+  } catch (e) {}
+
   var ready = false;
   if (LIVE) try {
     if (PADDLE.env === 'sandbox') Paddle.Environment.set('sandbox');
