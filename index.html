@@ -48,6 +48,7 @@
   .kicker{font-family:var(--display); font-weight:600; font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:var(--accent)}
   h1{font-family:var(--display); font-weight:700; font-size:clamp(30px,5.2vw,52px); line-height:1.08; letter-spacing:-.02em; margin:0; text-wrap:balance; max-width:20ch}
   .lede{color:var(--dim); font-size:17px; max-width:62ch; margin:0}
+  a.pano{display:block}
   .pano{border-radius:12px; overflow:hidden; border:1px solid var(--line); aspect-ratio:2/1; max-width:100%; background:var(--surface)}
   .pano img{display:block; width:100%; height:100%; object-fit:cover}
   .cap{font-family:var(--mono); font-size:12.5px; color:var(--faint); margin:0}
@@ -128,8 +129,8 @@
     <h1 data-t="h1">You don't need a newer drone: the full quality is already on your card</h1>
     <p class="lede" data-t="lede">For every sphere the drone also saves the original frames, as JPG and RAW (DNG). zenpano stitches them into a 360 sphere up to 16384 px wide instead of the 4096 px DJI Fly gives you, on your phone or your PC, in a few minutes.</p>
     <p class="herobtns"><a class="btn" href="#download" data-t="hb1">Free trial</a> <a class="btn ghost" href="dji-360-panorama.html" data-t="hb2">Why the DJI Fly sphere looks soft</a></p>
-    <div class="pano"><img src="img/pano.jpg" alt="360 panorama of a park with a lake, taken at 36 m, sky closed above"></div>
-    <p class="cap" data-t="cap1">Park, 36 m above ground · 26 DNG frames · 16384 × 8192 · made on the phone, cap closed</p>
+    <a class="pano" href="https://kuula.co/post/LjRVK" target="_blank" rel="noopener"><img src="img/pano_0425.jpg" width="2400" height="1200" alt="360 panorama of a reservoir in autumn: forested hills around still water, blue sky closed above"></a>
+    <p class="cap"><span data-t="cap1">DJI Mini 2 · 26 DNG frames edited in Lightroom Classic, stitched by zenpano through the plug-in · 16384 × 8192</span> · <a href="https://kuula.co/post/LjRVK" target="_blank" rel="noopener" data-t="cap2">Look around in 360 →</a></p>
   </div>
 
   <div class="facts">
@@ -368,7 +369,7 @@
     kt2: 'zenpano din JPG · 10752 px', kc: 'DJI Mini 2 · ambele variante zenpano editate doar în zenpano',
     shh: 'Lumină în umbre', shp: 'După apus, sfera din DJI Fly e cenușiu-închisă. Din cadrele DNG, zenpano ridică umbrele: acoperișurile, drumurile și culorile revin.', shc: 'Mini 2, după apus, același zbor',
     zh: 'Cerul de deasupra, fără elice', zp: 'Drona nu poate fotografia drept în sus. DJI Fly estompează golul; zenpano îl umple cu un cer potrivit și, pe vânt, lasă afară elicele care apar sus în cadre.', zc: 'Privind drept în sus · Mini 2, zi cu vânt, același zbor',
-    cap1: 'Parc, la 36 m · 26 de cadre DNG · 16384 × 8192 · făcută pe telefon, cu capacul închis',
+    cap1: 'DJI Mini 2 · 26 de cadre DNG editate în Lightroom Classic, lipite de zenpano prin plugin · 16384 × 8192', cap2: 'Privește în jur, în 360 →',
     f1h: 'De 4 ori rezoluția', f1: '16384 px lățime, din cadrele RAW (DNG) ale dronei.',
     f2h: 'Fără calculator', f2: 'Lipire, reparare de cusături, cerul închis: totul pe Android.',
     f3h: 'Cerul închis', f3: 'Gaura lăsată de dronă deasupra ei se umple, gata pentru orice viewer 360.',
