@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Sharper DJI 360 panoramas from the RAW (DNG) frames · Mini 2, Mini 3 Pro, Mini 4 Pro · zenpano</title>
-<meta name="description" content="Why the DJI Fly 360 sphere looks soft, where the original panorama photos are on the SD card, and how to stitch a sharp 16K sphere from the DNG files of a DJI Mini 2, Mini 3 Pro or Mini 4 Pro, on Android or Windows, with the sky closed.">
+<title>You don't need a newer drone: the full quality is already on your card · zenpano</title>
+<meta name="description" content="Why the DJI Fly 360 sphere looks soft, what is already sitting on your SD card in DCIM\PANORAMA, and how to stitch a sharp 16K sphere from the DNG or JPG frames on Android or Windows, with the sky closed.">
 <link rel="canonical" href="https://sebip.github.io/zenpano/dji-360-panorama.html">
-<meta property="og:title" content="Sharper DJI 360 panoramas from the RAW (DNG) frames">
-<meta property="og:description" content="Stitch a 16K sphere from your DJI Mini's original panorama photos, on the phone or the PC.">
+<meta property="og:title" content="You don't need a newer drone: the full quality is already on your card">
+<meta property="og:description" content="Why the DJI Fly 360 sphere looks soft, and how to stitch a 16K sphere from the original frames already on your SD card, on Android or Windows.">
 <meta property="og:image" content="https://sebip.github.io/zenpano/img/pano.jpg">
 <meta property="og:type" content="article">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
@@ -55,8 +55,20 @@
   .cmp .knob{position:absolute; top:50%; left:var(--x); width:40px; height:40px; margin:-20px 0 0 -20px; border-radius:50%;
              background:var(--accent); color:#171009; display:grid; place-items:center; font:700 15px var(--mono)}
   .cmp:focus-visible{outline:2px solid var(--teal); outline-offset:2px}
+  .cmp.sq{aspect-ratio:1/1; max-width:min(100%,520px)}
+  .cmp.lr{aspect-ratio:1600/480}
+  .cmp.f2{aspect-ratio:1600/1121}
+  .cmp.band{aspect-ratio:1600/428}
+  .cmp.tall{aspect-ratio:950/1400; max-width:min(100%,520px)}
   .tag{position:absolute; top:10px; font:500 12px var(--mono); padding:3px 8px; border-radius:5px; background:rgba(12,13,17,.72); color:var(--text)}
   .tag.l{left:10px} .tag.r{right:10px; color:var(--accent)}
+  .kframe{width:100%; aspect-ratio:16/9; border:1px solid var(--line); border-radius:10px; background:var(--surface); margin:10px 0 6px}
+  .ktabs{display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 8px}
+  .ktabs button{font:500 13px var(--mono); padding:7px 12px; border-radius:8px; border:1px solid var(--line); background:var(--surface); color:var(--dim); cursor:pointer}
+  .ktabs button[aria-pressed=true]{background:var(--accent); color:#171009; border-color:var(--accent)}
+  figure{margin:10px 0 18px}
+  .shot{display:block; width:100%; height:auto; border-radius:10px; border:1px solid var(--line)}
+  .check{background:rgba(242,160,61,.16); color:var(--accent); font:500 12.5px var(--mono); padding:1px 5px; border-radius:4px}
   .cta{border:1px solid var(--line); border-radius:12px; padding:22px; display:flex; flex-direction:column; gap:12px; background:var(--surface)}
   .cta h2{margin:0}
   .cta p{margin:0; color:var(--dim)}
@@ -64,28 +76,35 @@
   .btn:focus-visible{outline:2px solid var(--teal); outline-offset:2px}
   a{color:var(--teal)}
   footer{color:var(--faint); font-size:13px; border-top:1px solid var(--line); padding-top:16px}
+  hr{border:0; border-top:1px solid var(--line); width:100%}
+  header{display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap}
+  .brand{font-family:var(--display); font-weight:700; font-size:24px; letter-spacing:-.01em; color:var(--text); text-decoration:none}
+  .hright{display:flex; align-items:center; gap:14px; flex-wrap:wrap; justify-content:flex-end}
+  header nav{display:flex; align-items:center; gap:14px; flex-wrap:wrap}
+  header nav a{color:var(--dim); font:500 14px var(--display); text-decoration:none}
+  header nav a:hover,header nav a:focus-visible,header nav a[aria-current]{color:var(--text); text-decoration:underline}
+  header nav a.triallink{color:var(--teal); font-weight:600}
+  header nav a.buylink{color:var(--accent); font-weight:600}
 </style>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    {"@type": "Question", "name": "Why is the DJI Fly 360 panorama blurry?",
-     "acceptedAnswer": {"@type": "Answer", "text": "DJI Fly saves the sphere at a reduced size: 4096 × 2048 px on the Mini 2, 8192 × 4096 on the Mini 3 Pro and 12000 × 6000 on the Mini 4 Pro, stitched from compressed photos. The drone keeps the original frames on the SD card, and a sphere stitched from them can be about 16,500 px wide."}},
-    {"@type": "Question", "name": "Why does the DJI Fly 360 sphere show doubled objects, broken lines and fuzzy patches?",
-     "acceptedAnswer": {"@type": "Answer", "text": "They come from things that move or sit close to the drone while it turns between photos: people, cars, waves, clouds, nearby trees. DJI Fly gives no way to fix them. In zenpano you mark the spot and choose the version that looks right, without touching the rest of the panorama."}},
-    {"@type": "Question", "name": "Where are the original DJI panorama photos on the SD card?",
-     "acceptedAnswer": {"@type": "Answer", "text": "In the PANORAMA folder of the card (DCIM\\PANORAMA), one subfolder per sphere. A DJI Mini 2, Mini 2 SE or Mini 4K saves 26 frames, DJI_0001 to DJI_0026, as JPG and, when RAW is enabled, also as DNG. A Mini 3 Pro or Mini 4 Pro saves its sphere frames as DNG files."}},
-    {"@type": "Question", "name": "How do I stitch a DJI 360 sphere from the DNG (RAW) files?",
-     "acceptedAnswer": {"@type": "Answer", "text": "Copy the sphere's folder from the card, open it in zenpano on Android or Windows and start the panorama. zenpano reads the DNG files directly, stitches the full-resolution sphere, lets you repair a spot by hand and fills the hole at the top, all without a PC on Android."}},
-    {"@type": "Question", "name": "How do I fill the hole at the top (zenith) of a drone 360 panorama?",
-     "acceptedAnswer": {"@type": "Answer", "text": "The drone cannot photograph straight up, so every drone sphere has a gap at the zenith. zenpano fills it right after stitching, so the panorama is ready for any 360 viewer."}},
-    {"@type": "Question", "name": "Why does the zenpano panorama look less contrasty than the DJI Fly sphere?",
-     "acceptedAnswer": {"@type": "Answer", "text": "On purpose. zenpano keeps the detail in the shadows and the highlights instead of baking in a strong look, so you have room to edit the panorama the way you like. For a punchier result, use Edit in the Windows app (Dehaze, Clarity), your phone's gallery or any photo editor."}},
-    {"@type": "Question", "name": "Can I edit the DJI panorama frames in Lightroom before stitching?",
-     "acceptedAnswer": {"@type": "Answer", "text": "Yes, on Windows. Edit one frame in Lightroom Classic, sync the settings to all the frames of the sphere and export them with the zenpano plug-in. It saves them as 16-bit TIFF with the drone's data, opens zenpano and starts the stitching; when you close zenpano, the panorama is added back to your Lightroom catalog."}},
-    {"@type": "Question", "name": "Which DJI drones does zenpano support?",
-     "acceptedAnswer": {"@type": "Answer", "text": "DJI Mini 2, Mini 2 SE and Mini 4K (JPG or DNG, also their Wide-angle and 180° panoramas), DJI Mini 4 Pro (DNG) and DJI Mavic Air (DNG or JPG), and, in beta, DJI Mini 3, Mini 3 Pro, Air 3 and Air 2S (DNG), DJI Mini 5 Pro (camera JPG) and DJI Mavic Pro (JPG or DNG, Wide-angle and 180°). It runs on Android and Windows."}}
+    {"@type": "Question", "name": "What actually ends up on Facebook when you share a DJI Fly 360 sphere?",
+     "acceptedAnswer": {"@type": "Answer", "text": "The sphere DJI Fly saves is a compressed preview built from compressed photos at a reduced size. On a phone screen it looks passable, but when you zoom in on a house, street, or path, details blur, the sky clips to white next to the sun, and over water the far shore can step up or down at a seam."}},
+    {"@type": "Question", "name": "What is already sitting on your SD card?",
+     "acceptedAnswer": {"@type": "Answer", "text": "When your drone shoots a sphere, it stores the individual frames in DCIM\\PANORAMA, one subfolder per flight: 26 frames on a Mini 2, Mini 2 SE, or Mini 4K (JPG and, with RAW enabled, DNG), 35 frames on a Mini 3 Pro or Mini 4 Pro (DNG when set to RAW), and 25 frames on a Mavic Air. Stitching the original DNGs in zenpano reaches 16384 × 8192 px on a Mini 2 and about 16500 × 8250 px on a Mini 3 Pro or Mini 4 Pro."}},
+    {"@type": "Question", "name": "How do you go from card to finished sphere on your phone?",
+     "acceptedAnswer": {"@type": "Answer", "text": "In zenpano on Android, pick the folder, choose the source (JPG frames for the fast route, or DNG / DNG+ with Shadow recovery and Highlight reduction sliders), and start—no PC needed. On a Mini 2 sphere, 26 DNG frames take about four minutes with DNG+. Afterwards, zenpano fills the overhead gap at the zenith to match the surrounding sky, with a Margin setting to leave out propellers on windy flights."}},
+    {"@type": "Question", "name": "What happens when something moves between shots?",
+     "acceptedAnswer": {"@type": "Answer", "text": "Cars, people, waves, clouds, or nearby trees moving while the drone rotates leave doubled objects, broken lines, or smeared seams. In zenpano, Repair an area lets you mark the spot and pick a clean version from an overlapping frame without touching the rest of the panorama."}},
+    {"@type": "Question", "name": "Can zenpano make more than 360 spheres?",
+     "acceptedAnswer": {"@type": "Answer", "text": "Yes. zenpano stitches Wide-angle and 180° panoramas (Mini 2, Mini 2 SE, Mini 4K, and in beta Air 3, Mini 5 Pro, Mavic Pro; Wide-angle and Vertical on Mavic Air). From any finished sphere, Crop exports straight-line wide shots, 180° bands, or rectangles (Full, 2:1, 16:9, 3:2, 4:3, 1:1) with Auto orientation, and you can render a rotatable little planet up to around 16000 × 16000 px or capped at 9 MB by default."}},
+    {"@type": "Question", "name": "What does the Windows version add, and does it work with Lightroom Classic?",
+     "acceptedAnswer": {"@type": "Answer", "text": "The Windows version adds quick adjustments (like Dehaze and Clarity), complex repairs with individual frame adjustments, and 16-bit TIFF or linear DNG export. It also comes with a Lightroom Classic plug-in that writes 16-bit TIFFs with gimbal metadata, launches zenpano, starts the stitch, and returns the sphere to your Lightroom catalog as a JPG and, with a licence, as a 16-bit TIFF."}},
+    {"@type": "Question", "name": "Which DJI drones are supported and how does the free trial work?",
+     "acceptedAnswer": {"@type": "Answer", "text": "zenpano supports the DJI Mini 2, Mini 2 SE, Mini 4K, Mini 4 Pro, and Mavic Air, with beta support for the Mini 3, Mini 3 Pro, Air 3, Air 2S, Mini 5 Pro, and Mavic Pro, on Android and Windows. The free trial has no panorama limit and adds a \"zenpano · trial\" watermark; a licence removes it (€19 for one device or €29 for PC + phone, one payment, no subscription)."}}
   ]
 }
 </script>
@@ -94,108 +113,197 @@
 <div class="wrap">
   <header>
     <a class="brand" href="./">zenpano</a>
-    <nav><a href="./#download">Download</a></nav>
+    <div class="hright"><nav aria-label="Primary"><a href="./">Home</a><a href="dji-360-panorama.html" aria-current="page">Guide</a><a href="dji-360-settings.html">Shooting tips</a><a class="triallink" href="./#download">Free trial</a><a class="buylink" href="buy.html">Buy a licence</a></nav></div>
   </header>
+  <div class="kicker">For DJI Mini 2 · Mini 2 SE · Mini 4K · Mini 4 Pro · Mavic Air · beta: Mini 3 · Mini 3 Pro · Air 3 · Air 2S · Mini 5 Pro · Mavic Pro</div>
 
   <div>
-    <div class="kicker">Guide · DJI Mini 2 · Mini 3 Pro · Mini 4 Pro</div>
-    <h1>Sharper DJI 360 panoramas from the drone's RAW frames</h1>
-    <p class="lede">The sphere DJI Fly saves is small and soft when you zoom in. Your drone keeps every original frame on the SD card, and those frames hold four times the detail. Here is where they are and how to turn them into a sharp 360 panorama, on your phone or your PC.</p>
-  </div>
-
-  <div>
-    <div class="pano"><img src="img/pano.jpg" alt="360 panorama of a park with a lake stitched by zenpano from DJI Mini 2 DNG frames, sky closed above"></div>
-    <p class="cap">DJI Mini 2 · 26 DNG frames · 16384 × 8192 · stitched on an Android phone</p>
+    <h1>You don't need a newer drone: the full quality is already on your card</h1>
+    <p class="lede">zenpano helps you get it out, on your phone or your PC.</p>
   </div>
 
   <section>
-    <h2>Why is the DJI Fly 360 panorama blurry?</h2>
-    <p>The sphere you see in DJI Fly is a quick preview-sized stitch. It is built from compressed photos and saved at a reduced size:</p>
-    <div class="tablewrap">
-      <table>
-        <tr><th>Drone</th><th>DJI Fly sphere</th><th>Sphere from the original frames</th></tr>
-        <tr><td>DJI Mini 2 · Mini 2 SE · Mini 4K</td><td class="num">4096 × 2048</td><td class="num">16384 × 8192</td></tr>
-        <tr><td>DJI Mini 3 Pro</td><td class="num">8192 × 4096</td><td class="num">≈ 16500 × 8250</td></tr>
-        <tr><td>DJI Mini 4 Pro</td><td class="num">12000 × 6000</td><td class="num">≈ 16500 × 8250</td></tr>
-      </table>
+    <p>Many DJI pilots post a 360 sphere straight from DJI Fly (or DJI GO 4 on older drones like the Mavic Air and Mavic Pro), spot soft rooftops or a white patch by the sun, and assume they need a newer drone. Usually, they don't. DJI Fly works fine for a quick share after landing, but your drone already records the source frames for a sharper sphere. The difference comes from processing the files already on your SD card.</p>
+  </section>
+
+  <section>
+    <h2>What actually ends up on Facebook</h2>
+    <p>The sphere DJI Fly saves is a compressed preview. On a phone screen it looks passable. Zoom in on a house, street, or path, and details blur. Next to the sun, the sky clips to white. Over water, the far shore can step up or down at a seam. The camera isn't at fault: the app saves the sphere small from compressed photos.</p>
+    <figure>
+      <div class="cmp tall" tabindex="0" role="slider" aria-label="Compare DJI Fly and zenpano facing the sun" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+        <img src="img/soare_fly.jpg" alt="Town below a hill with the sun above it in the DJI Fly sphere: the sky around the sun is plain white">
+        <img class="top" src="img/soare_zen.jpg" alt="The same view in zenpano from the DNG frames: blue sky, clouds around the sun and sharp houses">
+        <span class="tag l">DJI Fly</span><span class="tag r">zenpano</span>
+        <div class="bar"></div><div class="knob">⇆</div>
+      </div>
+      <figcaption class="cap">Mini 2, facing the sun, same flight · DJI Fly sphere, 4096 px · zenpano from the DNG frames, 16384 px</figcaption>
+    </figure>
+  </section>
+
+  <section id="look">
+    <h2>Turn it around yourself</h2>
+    <p>The same autumn flight over a dam, three ways. Switch between them and zoom in on the trees, the boat or the far shore. Both zenpano versions come out the same on the phone, a few minutes after landing: better quality and far higher resolution than the DJI Fly sphere, ready to post straight from the phone.</p>
+    <div class="ktabs" role="group" aria-label="Choose the version">
+      <button type="button" data-k="Lj32Y" aria-pressed="false">DJI Fly · 4096 px</button>
+      <button type="button" data-k="Lj32C" aria-pressed="false">zenpano from JPG · 10752 px</button>
+      <button type="button" data-k="Lj32z" aria-pressed="true">zenpano DNG+ · 16384 px</button>
     </div>
-    <p>On a phone screen the difference is small. In a 360 viewer, as soon as you zoom in on a house, a road or a person, the DJI Fly sphere turns to mush. Drag the line to compare the same spot:</p>
-    <div class="cmp" tabindex="0" role="slider" aria-label="Compare DJI Fly and zenpano" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
-      <img src="img/case_fly.jpg" alt="Houses in the DJI Fly sphere, soft when zoomed">
-      <img class="top" src="img/case_zen.jpg" alt="The same houses stitched by zenpano from the DNG frames, roof tiles and windows sharp">
-      <span class="tag l">DJI Fly</span><span class="tag r">zenpano</span>
-      <div class="bar"></div><div class="knob">⇆</div>
-    </div>
-    <p class="cap">DJI Mini 2 · same flight · 1:1 crop</p>
-  </section>
-
-  <section>
-    <h2>Why does the DJI Fly sphere show doubled objects, broken lines and fuzzy patches?</h2>
-    <p>Small size is not the only problem. The DJI Fly sphere often shows:</p>
-    <ul>
-      <li><b>doubled objects</b>: a car, a tree or a roof edge appears twice, half transparent;</li>
-      <li><b>broken lines</b>: a road, a fence or the horizon jumps sideways where two photos meet;</li>
-      <li><b>fuzzy patches</b>: areas smeared or blurred while the rest of the sphere is sharp.</li>
-    </ul>
-    <p>They come from things that move or sit close to the drone while it turns: people, cars, waves, clouds, nearby trees. In DJI Fly you can only accept the result. In zenpano you mark the spot and pick the version that looks right, and the rest of the panorama stays as it was.</p>
-  </section>
-
-  <section>
-    <h2>Where are the original DJI panorama photos on the SD card?</h2>
-    <p>Every sphere the drone shoots is also saved as separate photos, in the <code>PANORAMA</code> folder of the card (<code>DCIM\PANORAMA</code>), one subfolder per sphere:</p>
-    <ul>
-      <li><b>Mini 2, Mini 2 SE, Mini 4K:</b> 26 frames, <code>DJI_0001</code> to <code>DJI_0026</code>, as JPG and, if the photo format includes RAW, also as DNG.</li>
-      <li><b>Mini 3 Pro, Mini 4 Pro:</b> the sphere frames as DNG files when the photo format is set to RAW (or JPG + RAW).</li>
-    </ul>
-    <p>Copy the whole subfolder to your phone or PC. The DNG (RAW) files are the best source: more detail in the shadows, cleaner skies and more room to edit afterwards.</p>
-  </section>
-
-  <section>
-    <h2>How do I stitch a DJI 360 sphere from the DNG files?</h2>
-    <p>With <a href="./">zenpano</a>, on Android or on Windows:</p>
-    <ol>
-      <li><b>Choose the folder</b> with the sphere's frames. zenpano recognises the drone by itself.</li>
-      <li><b>Start the panorama.</b> A Mini 3 Pro sphere of 35 DNG files takes about two minutes on a recent phone.</li>
-      <li><b>Repair a spot by hand</b> if something moved between frames, like a cloud or a car: mark the area and choose the version that looks right.</li>
-      <li><b>Close the sky.</b> The gap at the top is filled and the panorama is ready for Kuula, Google Maps, Facebook or any 360 viewer.</li>
-    </ol>
-    <p>No PC is needed: on Android everything, from the card to the finished sphere, happens on the phone.</p>
-    <p>Watch the whole process, with subtitles in 9 languages: <a href="https://www.youtube.com/watch?v=dTA26dnRmPI" target="_blank" rel="noopener">on Windows</a> · <a href="https://www.youtube.com/watch?v=QKlQv3XlrV4" target="_blank" rel="noopener">on Android</a> · <a href="https://www.youtube.com/@zenpano" target="_blank" rel="noopener">all videos on YouTube</a>.</p>
-  </section>
-
-  <section>
-    <h2>How do I fill the hole at the top of a drone 360 panorama?</h2>
-    <p>A drone cannot photograph straight up, so every drone sphere has a hole at the zenith. DJI Fly blurs it over; most desktop stitchers leave it black. zenpano fills it right after stitching, with a sky that matches the rest of the panorama, so the sphere looks complete when you look up in a viewer.</p>
-  </section>
-
-  <section>
-    <h2>Why does the zenpano panorama look less contrasty than the DJI Fly sphere?</h2>
-    <p>On purpose. The drone's own sphere comes out with a strong, finished look, and whatever it clipped in the shadows or the sky is gone. zenpano keeps that detail instead, so the panorama has room for your own edit. For a punchier result, use <b>Edit</b> in the Windows app (Dehaze, Clarity), your phone's gallery or any photo editor you like.</p>
-  </section>
-
-  <section>
-    <h2>Can I edit the frames in Lightroom before stitching?</h2>
-    <p>Yes, on Windows. Edit one frame in Lightroom Classic, then sync the settings to all the frames of the sphere: every frame needs the same white balance, exposure and tone, or the seams show. Export them with the zenpano plug-in (the .zip next to the Windows download). It saves them as 16-bit TIFF with the drone's gimbal data, opens zenpano and starts the stitching. When you close zenpano, the panorama is added back to your catalog, as JPG and, with a licence, as a 16-bit TIFF you can keep editing.</p>
-  </section>
-
-  <section>
-    <h2>Which DJI drones are supported?</h2>
-    <ul>
-      <li><b>DJI Mini 2, Mini 2 SE, Mini 4K:</b> from the JPG or the DNG frames; the drone's Wide-angle and 180° panoramas too.</li>
-      <li><b>DJI Mini 4 Pro:</b> from the DNG frames. The panoramas come out ready to use, with colours close to the DJI Fly sphere.</li>
-      <li><b>DJI Mavic Air:</b> from the DNG or the JPG frames (25 per sphere).</li>
-      <li><b>DJI Mini 3, Mini 3 Pro, Air 3, Air 2S (beta):</b> from the DNG frames.</li>
-      <li><b>DJI Mini 5 Pro (beta):</b> from the camera JPG frames; spheres, Wide-angle and 180°.</li>
-      <li><b>DJI Mavic Pro (beta):</b> from the JPG or the DNG frames; Wide-angle and 180°.</li>
-    </ul>
-    <p>Have spheres from another DJI drone? Send a set through the <a href="https://docs.google.com/forms/d/e/1FAIpQLSfg8B3M0TJ8XNp0UHJ5vmczgR0JQPqIjGE8BBUObkExhxNMmA/viewform" target="_blank" rel="noopener">feedback form</a>.</p>
+    <iframe id="kview" class="kframe" style="aspect-ratio:16/10" src="https://kuula.co/share/Lj32z" title="The autumn dam sphere on Kuula" loading="lazy" allow="fullscreen; accelerometer; gyroscope; xr-spatial-tracking" allowfullscreen></iframe>
+    <p class="cap">DJI Mini 2 · both zenpano versions edited only in zenpano</p>
   </section>
 
   <div class="cta">
     <h2>Try it on your own spheres</h2>
-    <p>Free trial for Android and Windows: no limit on panoramas, each one carries a «zenpano · trial» watermark until you enter a licence key.</p>
-    <a class="btn" href="https://github.com/sebip/zenpano/releases/latest" target="_blank" rel="noopener">Download zenpano</a>
+    <p>Android and Windows. Supported: DJI Mini 2, Mini 2 SE, Mini 4K, Mini 4 Pro, Mavic Air; in beta: Mini 3, Mini 3 Pro, Air 3, Air 2S, Mini 5 Pro, Mavic Pro. Free trial with a watermark; a licence is €19 for one device or €29 for PC + phone, one payment.</p>
+    <a class="btn" href="./#download">Download zenpano</a>
+    <p>Shooting a new sphere? Read <a href="dji-360-settings.html">how to shoot a DJI sphere for cleaner stitches</a> first: RAW in Pano mode, exposure towards the sun, wind.</p>
   </div>
+
+  <section>
+    <h2>What is already sitting on your SD card</h2>
+    <p>When your drone shoots a sphere, it stores the individual frames in <code>DCIM\PANORAMA</code>, one subfolder per flight. A Mini 2, Mini 2 SE, or Mini 4K saves 26 frames (<code>DJI_0001</code> to <code>DJI_0026</code>) as JPG and, with RAW enabled, as DNG. A Mini 3 Pro or Mini 4 Pro saves 35 frames, as DNG when the panorama format is set to RAW. A Mavic Air saves 25 frames. Copy that subfolder to your phone or PC before formatting the card.</p>
+    <p>DJI Fly outputs 4096 × 2048 px on the Mini 2, Mini 2 SE, and Mini 4K; 8192 × 4096 px on the Mini 3 Pro; and 12000 × 6000 px on the Mini 4 Pro. When I stitch the original DNGs in zenpano, a Mini 2 sphere reaches 16384 × 8192 px (four times the width), and Mini 3 Pro or Mini 4 Pro spheres reach about 16500 × 8250 px.</p>
+    <figure>
+      <img class="shot" src="img/card_panorama.jpg" alt="Diagram of the PANORAMA folder on a DJI Mini 2 card: one subfolder with 26 frames, each saved as JPG and DNG">
+      <figcaption class="cap">One sphere on a Mini 2 card: 26 frames, each as JPG and DNG. In DCIM/100MEDIA a small DJI_0434.html file only points to this subfolder; DJI Fly stitches its own sphere on the phone.</figcaption>
+    </figure>
+  </section>
+
+  <section><h2>The usual way, and the short way</h2><p>Getting a really good sphere out of those frames has always taken several programs: develop the RAW files in one, stitch them in another, then mask out what moved, fill the zenith (the hole above the drone) and edit the result in yet another. That can take hours for one sphere, and a lot to learn. zenpano does the developing, the stitching, the repairs and the zenith in one app, on the phone or the PC, in a few minutes; on the PC there is a quick edit too.</p></section>
+<section>
+    <h2>From card to finished sphere on your phone</h2>
+    <figure>
+      <img class="shot" src="img/phone_now.jpg" alt="Six zenpano screens on an Android phone: DNG+ with shadow recovery and highlight reduction; developing the 26 DNG frames; the panorama is ready with the choice to fill the zenith or repair an area; Repair an area with a strip along a ridge and with a rectangle; the zenith before and after filling">
+      <figcaption class="cap">zenpano 0.9.50 on Android · DNG+ and the sliders · developing the 26 DNGs · ready in 4:17 · «Repair an area»: a «Strip» along a ridge, point by point, and a rectangle · «Fill the zenith», before and after</figcaption>
+    </figure>
+    <p>In zenpano on Android, pick the folder, choose the source, and start—no PC needed. You choose the source by how much time you have and what the sphere is for:</p>
+    <ul>
+      <li>From JPG frames: the fast route. Stitching the card's JPGs gives cleaner seams and more detail than DJI Fly—about 10752 px wide on a Mini 2, Mini 2 SE or Mini 4K instead of 4096 px (their panorama JPGs are only 2000 × 1500). On the Mavic Air the frames are full-size JPGs, so even the fast route gives the full 16524 px.</li>
+      <li>From DNG frames (DNG+ is the same with extra care for skies and shadows, made for difficult light): full resolution, or sized for Kuula (16384 px), Google Maps (13312 px), or an MB cap, keeping highlight and shadow detail. The «Shadow recovery» and «Highlight reduction» sliders lift dark areas and pull back bright ones during raw development, right on the phone. On my phone, the 26 DNG frames of a Mini 2 sphere take about four minutes with DNG+.</li>
+    </ul>
+    <figure>
+      <div class="cmp" tabindex="0" role="slider" aria-label="Compare autumn trees in DJI Fly and zenpano DNG+" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+        <img src="img/jpg_fly.jpg" alt="Autumn trees by a lake in the DJI Fly sphere, soft and blocky when zoomed">
+        <img class="top" src="img/jpg_zen.jpg" alt="The same trees stitched by zenpano from the DNG frames: individual trees and autumn colours visible">
+        <span class="tag l">DJI Fly · 4096 px</span><span class="tag r">zenpano DNG+ · 16384 px</span>
+        <div class="bar"></div><div class="knob">⇆</div>
+      </div>
+      <figcaption class="cap">Mini 2, autumn, same flight, the same 14° of view · zenpano from the DNG frames (DNG+), edited only in zenpano</figcaption>
+    </figure>
+    <figure>
+      <div class="cmp" tabindex="0" role="slider" aria-label="Compare dusk shadow recovery in DJI Fly and zenpano DNG+" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+        <img src="img/umbre_fly.jpg" alt="Farm buildings and a road after sunset in the DJI Fly sphere, dark grey">
+        <img class="top" src="img/umbre_zen.jpg" alt="The same place in zenpano from the DNG frames with the shadows lifted: red roof, roads, cars and colours visible">
+        <span class="tag l">DJI Fly</span><span class="tag r">zenpano · DNG+, shadows lifted</span>
+        <div class="bar"></div><div class="knob">⇆</div>
+      </div>
+      <figcaption class="cap">Mini 2, after sunset, same flight · zenpano from the DNG frames with «Shadow recovery» at 100</figcaption>
+    </figure>
+    <p>The whole process on a phone, from the DNG frames on the card to a 16384 px sphere, no computer involved:</p>
+    <iframe class="kframe" src="https://www.youtube-nocookie.com/embed/QKlQv3XlrV4" title="zenpano on Android: a DJI 360 sphere from the DNG frames" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <p class="cap">Android · DJI Mini 2 · <a href="https://www.youtube.com/@zenpano" target="_blank" rel="noopener">all videos on YouTube</a></p>
+    
+    
+    <p>A zenpano sphere looks flatter at first than DJI Fly on purpose. DJI Fly bakes in heavy contrast, clipping highlights and crushing shadows. I keep that tonal range intact so you can edit it yourself.</p>
+    <figure>
+      <img class="shot" src="img/creek_djifly_vs_zenpano.jpg" alt="Mini 4 Pro, bright clouds, same flight: DJI Fly clips the sky while zenpano keeps cloud detail from the 35 DNG frames">
+      <figcaption class="cap">Mini 4 Pro, bright clouds, same flight · DJI Fly vs zenpano from the DNG frames · frames by Chris</figcaption>
+    </figure>
+    
+  </section>
+  <section>
+    <h2>Closing the sky, and hiding the propellers</h2>
+    <p>Whichever source you choose, the last step is closing the sky. Drones cannot shoot straight up, leaving an overhead gap. DJI Fly blurs it and most desktop stitchers leave it black. I built zenpano to fill the zenith to match the surrounding sky for 360 viewers. On a windy flight the drone tilts and the propellers can show at the top of the frames; raising the zenith «Margin» (or dragging the orange line in the preview) leaves them out, and the filled sky covers that part too.</p>
+    <figure>
+      <div class="cmp sq" tabindex="0" role="slider" aria-label="Compare zenith fill in DJI Fly and zenpano" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+        <img src="img/zenit_fly.jpg" alt="Looking straight up in the DJI Fly sphere: a blurred patch with a dark smudge from the propellers">
+        <img class="top" src="img/zenit_zen.jpg" alt="The same view in zenpano: the sky filled in evenly">
+        <span class="tag l">DJI Fly</span><span class="tag r">zenpano</span>
+        <div class="bar"></div><div class="knob">⇆</div>
+      </div>
+      <figcaption class="cap">Looking straight up · Mini 2, windy day, same flight · zenpano with the zenith «Margin» at 140</figcaption>
+    </figure>
+    <figure>
+      <div class="cmp sq" tabindex="0" role="slider" aria-label="Compare zenith fill with Margin 0 and Margin 140" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+        <img src="img/zenit_m0.jpg" alt="Zenith filled with no margin: the propeller shadow is spread into the fill">
+        <img class="top" src="img/zenit_zen.jpg" alt="Zenith filled with margin 140: the propellers left out">
+        <span class="tag l">Margin 0</span><span class="tag r">Margin 140</span>
+        <div class="bar"></div><div class="knob">⇆</div>
+      </div>
+      <figcaption class="cap">The propellers showed at the top of the frames: with no margin they are smeared into the filled sky; a larger margin leaves them out</figcaption>
+    </figure>
+  </section>
+
+
+  <section>
+    <h2>When something moves between shots</h2>
+    <p>While the drone rotates, cars, people, waves, clouds, or nearby trees move. That leaves doubled objects, broken lines, or smeared seams. DJI Fly has no fix for it.</p>
+    <p>In zenpano, <b>Repair an area</b> lets you mark the spot and pick a clean version from an overlapping frame without touching the rest of the panorama. It depends on what the overlapping shots captured, so not every moving subject can be fixed, though many seam breaks take a single repair.</p>
+    <figure>
+      <div class="cmp" tabindex="0" role="slider" aria-label="Compare path in the park before and after repair" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+        <img src="img/alee_inainte.jpg" alt="A paved path in the park, broken where two frames meet">
+        <img class="top" src="img/alee_reparat.jpg" alt="The same path after one repair, continuous">
+        <span class="tag l">Before</span><span class="tag r">After repair</span>
+        <div class="bar"></div><div class="knob">⇆</div>
+      </div>
+      <figcaption class="cap">Path in the park · Mini 2 · before and after one repair in the app, 1:1 crop</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <h2>More than 360 spheres</h2>
+    <p>zenpano also stitches the drone's Wide-angle and 180° panoramas: on the Mini 2, Mini 2 SE and Mini 4K, and in beta on the Air 3, Mini 5 Pro and Mavic Pro. On the Mavic Air, Wide-angle and Vertical.</p>
+    <p>From any finished sphere, Crop exports regular photos without altering the sphere itself. Frame a straight-line wide shot, a 180° band, or a rectangle in Full, 2:1, 16:9, 3:2, 4:3, or 1:1. Choose how the view is drawn (straight lines kept straight, or a wider curved look), and let Auto orientation level the horizon.</p>
+    <p>You can also render a little planet and rotate it to put the view you want on top (the «Roll» slider, or two fingers on the phone), at full resolution (around 16000 × 16000 px) or smaller (8192 px, 4096 px, or a file-size cap; 9 MB by default so Facebook treats it as a normal photo).</p>
+    <figure>
+      <img class="shot" src="img/crop_wide_result.jpg" alt="A wide-angle photo cropped from the finished sphere in zenpano">
+      <figcaption class="cap">A wide-angle photo cropped from the finished sphere · 7773 × 6032 px · Mini 2</figcaption>
+    </figure>
+    <figure>
+      <img class="shot" src="img/planeta.jpg" alt="A little planet made from the park 360 sphere">
+      <figcaption class="cap">Little planet from the same park sphere · Mini 2</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <h2>On Windows, when you want more control</h2>
+    <p>The Windows version includes everything on Android plus desktop editing tools. On Android, I left out a photo editor because every phone already has one, even the Gallery app. On Windows, you get quick adjustments (like Dehaze and Clarity), complex repairs with individual frame adjustments, and 16-bit TIFF or linear DNG export so you don't finish tonal edits on an 8-bit JPG.</p>
+    <p>Next to the Windows download there is also a Lightroom Classic plug-in. Develop one frame, sync white balance, exposure, and tone across the set so seams match, and export via the zenpano plug-in. It writes 16-bit TIFFs with gimbal metadata, launches zenpano, and starts the stitch. When you close zenpano, the sphere returns to your Lightroom catalog as a JPG and, with a licence, as a 16-bit TIFF.</p>
+    <figure>
+      <img class="shot" src="img/pc.jpg" alt="zenpano on Windows: settings on the left, the built-in 360 viewer on the right">
+      <figcaption class="cap">zenpano on Windows · settings on the left, the built-in 360 viewer on the right</figcaption>
+    </figure>
+    <p>The same steps on Windows, from the drone's files to a finished sphere, with subtitles in 9 languages:</p>
+    <iframe class="kframe" src="https://www.youtube-nocookie.com/embed/dTA26dnRmPI" title="zenpano on Windows: a DJI 360 sphere from the RAW frames" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <figure>
+      <div class="cmp lr" tabindex="0" role="slider" aria-label="Compare straight from DNG and edited in Lightroom Classic" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+        <img src="img/lr_dngplus.jpg" alt="Autumn hillside at dusk stitched straight from the DNG frames, dark and muted">
+        <img class="top" src="img/lr_edited.jpg" alt="The same hillside stitched from frames edited in Lightroom Classic, brighter with warm autumn colours">
+        <span class="tag l">Straight from DNG</span><span class="tag r">Edited in Lightroom</span>
+        <div class="bar"></div><div class="knob">⇆</div>
+      </div>
+      <figcaption class="cap">Mini 2, autumn dusk, same flight · left: stitched straight from the DNG frames in zenpano · right: the frames edited in Lightroom Classic, then stitched through the plug-in</figcaption>
+    </figure>
+    <figure>
+      <div class="cmp f2" tabindex="0" role="slider" aria-label="Compare drone JPG and frames edited in Lightroom Classic" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+        <img src="img/lr_sun_jpg.jpg" alt="Sunset over a town stitched from the drone JPG frames: dark ground, muted sky">
+        <img class="top" src="img/lr_sun_edited.jpg" alt="The same sunset stitched from frames edited in Lightroom Classic: brighter ground, blue sky and clouds around the sun">
+        <span class="tag l">Drone JPG</span><span class="tag r">Edited in Lightroom</span>
+        <div class="bar"></div><div class="knob">⇆</div>
+      </div>
+      <figcaption class="cap">Same Mini 2 flight, towards the sun · left: zenpano from the camera JPG frames · right: the DNG frames edited in Lightroom Classic, then stitched through the plug-in</figcaption>
+    </figure>
+    <figure>
+      <img class="shot" src="img/lr_export_dialog.jpg" style="max-width:600px" alt="The zenpano section of the Lightroom Classic export dialog: path to zenpano.exe, open zenpano after export, start stitching right away, panorama width, moving clouds, 16-bit TIFF, add the result to Lightroom">
+      <figcaption class="cap">Lightroom Classic · File › Export, Export To: zenpano · the plug-in's options</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <h2>Why I built it, and how to try it</h2>
+    <p>I'm Sebastian. I've logged 1,500+ DJI flights, 260+ hours in the air, and over 100,000 photos—about 90% of them for 360 spheres. I started with a Spark before DJI had a sphere mode and have stitched thousands of panoramas since. The in-app sphere was never sharp enough, so I built the tool I wanted for myself.</p>
+    <p>Try it on your own spheres: the trial is free on Android and Windows, and a licence is one payment, from €19. <a href="./#download">Download zenpano</a>.</p>
+  </section>
 
   <footer>zenpano is an independent app, not affiliated with DJI. DJI, Mini and DJI Fly are trademarks of their owners. · <a href="./">zenpano home</a> · <a href="https://www.youtube.com/@zenpano" target="_blank" rel="noopener">YouTube</a></footer>
 </div>
@@ -213,6 +321,11 @@
       if (e.key === 'ArrowRight') { set(v + 5); e.preventDefault(); }
     });
   });
+</script>
+<script>
+document.querySelectorAll('.ktabs button').forEach(function(b){b.addEventListener('click',function(){
+  document.querySelectorAll('.ktabs button').forEach(function(x){x.setAttribute('aria-pressed', x===b ? 'true':'false');});
+  document.getElementById('kview').src='https://kuula.co/share/'+b.getAttribute('data-k');});});
 </script>
 <script data-goatcounter="https://zenpano.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>

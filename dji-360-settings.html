@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How to shoot a DJI 360 sphere: settings for RAW, exposure and wind · zenpano</title>
+<meta name="description" content="How to shoot a DJI 360 sphere for cleaner stitches: RAW in Pano mode, manual exposure and zebra warnings towards the sun, dusk shutter speeds, wind, horizon levelling, and moving subjects.">
+<link rel="canonical" href="https://sebip.github.io/zenpano/dji-360-settings.html">
+<meta property="og:title" content="How to shoot a DJI 360 sphere: settings for RAW, exposure and wind">
+<meta property="og:description" content="Settings for RAW in Pano mode, exposure towards the sun, dusk, wind, and moving subjects for cleaner DJI 360 stitches.">
+<meta property="og:image" content="https://sebip.github.io/zenpano/img/pano.jpg">
+<meta property="og:type" content="article">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+ :root{
+  color-scheme: dark;
+  --ground:#14161c; --surface:#1b1f27; --line:#2e3441;
+  --text:#e8eaf0; --dim:#98a1b2; --faint:#6b7486;
+  --accent:#f2a03d; --teal:#74d7d2;
+  --display:"Archivo","Helvetica Neue",Arial,sans-serif;
+  --ui:"IBM Plex Sans",system-ui,-apple-system,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+ }
+ *{box-sizing:border-box}
+ body{background:var(--ground); color:var(--text); font-family:var(--ui); font-size:16px; line-height:1.6; margin:0}
+ .wrap{max-width:820px; margin:0 auto; padding-inline:18px; padding-block:28px 64px; display:flex; flex-direction:column; gap:40px}
+ header{display:flex; align-items:center; justify-content:space-between; gap:12px}
+ .brand{font-family:var(--display); font-weight:700; font-size:24px; letter-spacing:-.01em; color:var(--text); text-decoration:none}
+ header nav a{color:var(--dim); font:500 13px var(--mono); text-decoration:none}
+ header nav a:hover{color:var(--text)}
+ .kicker{font-family:var(--display); font-weight:600; font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:var(--accent)}
+ h1{font-family:var(--display); font-weight:700; font-size:clamp(28px,4.6vw,44px); line-height:1.1; letter-spacing:-.02em; margin:10px 0 14px; text-wrap:balance}
+ .lede{color:var(--dim); font-size:17px; margin:0}
+ section h2{font-family:var(--display); font-weight:600; font-size:clamp(21px,3vw,27px); margin:0 0 10px; letter-spacing:-.01em; text-wrap:balance}
+ section p, section li{color:var(--dim)}
+ section p{margin:0 0 12px}
+ section ul, section ol{margin:0 0 12px; padding-left:22px}
+ section li{margin-bottom:6px}
+ b, strong{color:var(--text); font-weight:600}
+ code{font-family:var(--mono); font-size:14px; background:var(--surface); border:1px solid var(--line); border-radius:5px; padding:1px 6px; color:var(--text)}
+ .pano{border-radius:12px; overflow:hidden; border:1px solid var(--line); aspect-ratio:2/1; background:var(--surface)}
+ .pano img{display:block; width:100%; height:100%; object-fit:cover}
+ .cap{font-family:var(--mono); font-size:12.5px; color:var(--faint); margin:8px 0 0}
+ table{width:100%; border-collapse:collapse; font-size:14.5px; margin:4px 0 12px}
+ th,td{text-align:left; padding:9px 10px; border-bottom:1px solid var(--line); vertical-align:top}
+ th{font-family:var(--display); font-weight:600; color:var(--text); font-size:14px}
+ td{color:var(--dim)}
+ td.num{font-family:var(--mono); white-space:nowrap}
+ .tablewrap{overflow-x:auto}
+ .cmp{position:relative; aspect-ratio:16/9; border-radius:10px; overflow:hidden; border:1px solid var(--line);
+    touch-action:pan-y; user-select:none; cursor:ew-resize; --x:50%; margin-top:6px}
+ .cmp img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; pointer-events:none}
+ .cmp .top{clip-path:inset(0 0 0 var(--x))}
+ .cmp .bar{position:absolute; top:0; bottom:0; left:var(--x); width:2px; margin-left:-1px; background:var(--text)}
+ .cmp .knob{position:absolute; top:50%; left:var(--x); width:40px; height:40px; margin:-20px 0 0 -20px; border-radius:50%;
+       background:var(--accent); color:#171009; display:grid; place-items:center; font:700 15px var(--mono)}
+ .cmp:focus-visible{outline:2px solid var(--teal); outline-offset:2px}
+ .cmp.sq{aspect-ratio:1/1; max-width:min(100%,520px)}
+ .cmp.lr{aspect-ratio:1600/480}
+ .cmp.f2{aspect-ratio:1600/1121}
+ .cmp.band{aspect-ratio:1600/428}
+ .cmp.tall{aspect-ratio:950/1400; max-width:min(100%,520px)}
+ .tag{position:absolute; top:10px; font:500 12px var(--mono); padding:3px 8px; border-radius:5px; background:rgba(12,13,17,.72); color:var(--text)}
+ .tag.l{left:10px} .tag.r{right:10px; color:var(--accent)}
+ .kframe{width:100%; aspect-ratio:16/9; border:1px solid var(--line); border-radius:10px; background:var(--surface); margin:10px 0 6px}
+ .ktabs{display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 8px}
+ .ktabs button{font:500 13px var(--mono); padding:7px 12px; border-radius:8px; border:1px solid var(--line); background:var(--surface); color:var(--dim); cursor:pointer}
+ .ktabs button[aria-pressed=true]{background:var(--accent); color:#171009; border-color:var(--accent)}
+ figure{margin:10px 0 18px}
+ .shot{display:block; width:100%; height:auto; border-radius:10px; border:1px solid var(--line)}
+ .check{background:rgba(242,160,61,.16); color:var(--accent); font:500 12.5px var(--mono); padding:1px 5px; border-radius:4px}
+ .cta{border:1px solid var(--line); border-radius:12px; padding:22px; display:flex; flex-direction:column; gap:12px; background:var(--surface)}
+ .cta h2{margin:0}
+ .cta p{margin:0; color:var(--dim)}
+ .btn{align-self:flex-start; background:var(--accent); color:#171009; font:600 16px var(--display); text-decoration:none; padding:12px 20px; border-radius:10px}
+ .btn:focus-visible{outline:2px solid var(--teal); outline-offset:2px}
+ a{color:var(--teal)}
+ footer{color:var(--faint); font-size:13px; border-top:1px solid var(--line); padding-top:16px}
+ hr{border:0; border-top:1px solid var(--line); width:100%}
+  header{display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap}
+  .brand{font-family:var(--display); font-weight:700; font-size:24px; letter-spacing:-.01em; color:var(--text); text-decoration:none}
+  .hright{display:flex; align-items:center; gap:14px; flex-wrap:wrap; justify-content:flex-end}
+  header nav{display:flex; align-items:center; gap:14px; flex-wrap:wrap}
+  header nav a{color:var(--dim); font:500 14px var(--display); text-decoration:none}
+  header nav a:hover,header nav a:focus-visible,header nav a[aria-current]{color:var(--text); text-decoration:underline}
+  header nav a.triallink{color:var(--teal); font-weight:600}
+  header nav a.buylink{color:var(--accent); font-weight:600}
+</style>
+</head>
+<body>
+<div class="wrap">
+ <header>
+    <a class="brand" href="./">zenpano</a>
+    <div class="hright"><nav aria-label="Primary"><a href="./">Home</a><a href="dji-360-panorama.html">Guide</a><a href="dji-360-settings.html" aria-current="page">Shooting tips</a><a class="triallink" href="./#download">Free trial</a><a class="buylink" href="buy.html">Buy a licence</a></nav></div>
+  </header>
+  <div class="kicker">For DJI Mini 2 · Mini 2 SE · Mini 4K · Mini 4 Pro · Mavic Air · beta: Mini 3 · Mini 3 Pro · Air 3 · Air 2S · Mini 5 Pro · Mavic Pro</div>
+
+ <div>
+  <h1>How to shoot a DJI sphere for cleaner stitches</h1>
+  <p class="lede">Most sphere problems happen in the air before you open any software: blown-out skies near the sun, noisy night frames, or a horizon tilted by wind. After 1,500+ flights and inspecting real sphere sets in zenpano, here is what matters while shooting.</p>
+ </div>
+
+ <section>
+  <h2>Basic settings</h2>
+  <p>In the drone app (DJI Fly, or DJI GO 4 on the Mavic Air and Mavic Pro), switch to Pano mode and set the format of the original frames to RAW where your drone offers it. This setting is separate from the one for single photos, and on some drones it only shows in Pano mode with the drone in the air. If it is set to none, the card keeps only the app's stitched sphere, so check it before every sphere. On some drones the originals are either JPG or RAW, not both; my Mini 2 saves JPG and DNG side by side. Note that the Mini 5 Pro currently uses camera JPG frames in zenpano.</p>
+  <p>Once you land, copy the entire frame subfolder from the SD card rather than only the app's stitched sphere—see <a href="dji-360-panorama.html">the article</a> for the exact folder path and frame counts.</p>
+ </section>
+
+ <section>
+  <h2>Bright light and the sun</h2>
+  <p>Facing the sun is the main exposure trap. In auto exposure, the camera shifts settings between frames—on one set I checked, shutter speed jumped from 1/40 s to 1/4000 s in the same sphere. Frames pointed near the sun clip the sky on the sensor, and blown DNG highlights cannot be recovered later.</p>
+  <p>I switch to manual exposure (Pro mode) before starting and meter on the brightest sky toward the sun. The drone then locks that exposure across every frame: on two of my Mini 2 spheres in manual mode, all 26 frames share the exact same shutter speed and ISO, whereas my auto-exposure spheres span 3 to 8 different values. The ground looks dark in the preview, which is fine—you can lift shadows from DNG later, not clipped white sky. On a sunset sphere I shot this way at 1/25 s and ISO 100, the DNGs kept both sky colour and clouds intact.</p>
+  <p>If you stay in auto exposure, point toward the sun before starting and dial in -0.3 or -0.7 EV. Turn on the overexposure warning ("zebra" stripes) in the app's camera settings. In RAW, don't underexpose until every stripe vanishes: zebras are computed from the JPG preview, so the DNG still holds detail inside part of the marked area. Leave only small striped patches right around the sun to protect highlights while keeping shadows recoverable.</p>
+  <p>Later in zenpano, pick the DNG source on PC or DNG+ on Android, lower <b>Exposure</b> slightly for a deeper sky, and use «Shadow recovery» and «Highlight reduction» (see <a href="dji-360-panorama.html">the article</a>) to bring back the dark ground.</p>
+ </section>
+
+ <section>
+  <h2>Sunset, dusk and night</h2>
+  <p>At dusk, start a bit earlier while there is enough light to keep ISO low and shutter speed short. On a small drone sensor, ISO 1600 brings heavy noise that swamps dark areas.</p>
+  <p>In fading light, avoid 1/4 s to 0.6 s exposures if there is any wind: motion blur makes frames harder to align. A slightly higher ISO with a faster shutter gives sharper frames to stitch than a wind-shaken exposure. During stitching, zenpano temporarily brightens dark frames for alignment only, keeping the original lighting in the final sphere.</p>
+ </section>
+
+ <section>
+  <h2>Wind and the horizon</h2>
+  <p>Wind tilts the drone between shots and can leave the horizon uneven across seams. Pick a calmer day when possible, and over open water keep some shoreline in view to anchor alignment.</p>
+  <figure>
+   <div class="cmp band" tabindex="0" role="slider" aria-label="Compare horizon before and after Adjust a frame" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+    <img src="img/vant_inainte.jpg" alt="Lake horizon at sunset broken into a step where two wind-tilted frames meet">
+    <img class="top" src="img/vant_ajustat.jpg" alt="The same horizon continuous after the frames were adjusted">
+    <span class="tag l">As stitched</span><span class="tag r">After «Adjust a frame»</span>
+    <div class="bar"></div><div class="knob">⇆</div>
+   </div>
+   <figcaption class="cap">Sunset over a lake, Mini 4K, windy evening · the tilted frames moved by hand on the PC, then the horizon levelled</figcaption>
+  </figure>
+  <p>How the frames are moved back, step by step, in a short video: <a href="https://www.youtube.com/watch?v=fiVFW6Gp0XA" target="_blank" rel="noopener">«Adjust a frame» on a windy set</a>.</p>
+  <p>If your horizon tilts by the same angle across flights, calibrate the gimbal: run Auto calibration on a flat surface, then adjust horizontal tilt manually. You find it in the app's settings, under gimbal calibration. In zenpano, you can also straighten a tilted horizon after stitching with <b>Level the horizon</b>. If the propellers show at the top of the frames, raise the zenith «Margin» before filling the sky.</p>
+ </section>
+
+ <section>
+  <h2>Things that move</h2>
+  <p>Cars, people, waves, and clouds shift while the drone rotates, often ending up doubled or cut off at a seam. That doesn't ruin the set: as shown in <a href="dji-360-panorama.html">the article</a>, <b>Repair an area</b> fixes localized seam breaks from overlapping frames. On PC, <b>Adjust a frame</b> nudges a frame that stayed slightly out of place, and <b>Moving clouds</b> handles fast-moving clouds.</p>
+ </section>
+
+ <footer>zenpano is an independent app, not affiliated with DJI. DJI, Mini and DJI Fly are trademarks of their owners. · <a href="./">zenpano home</a> · <a href="https://www.youtube.com/@zenpano" target="_blank" rel="noopener">YouTube</a></footer>
+</div>
+<script>
+ document.querySelectorAll('.cmp').forEach(function (el) {
+  function set(p) { p = Math.max(0, Math.min(100, p)); el.style.setProperty('--x', p + '%'); el.setAttribute('aria-valuenow', Math.round(p)); }
+  function fromEvent(e) { var r = el.getBoundingClientRect(); set((e.clientX - r.left) / r.width * 100); }
+  var drag = false;
+  el.addEventListener('pointerdown', function (e) { drag = true; el.setPointerCapture(e.pointerId); fromEvent(e); });
+  el.addEventListener('pointermove', function (e) { if (drag) fromEvent(e); });
+  el.addEventListener('pointerup', function () { drag = false; });
+  el.addEventListener('keydown', function (e) {
+   var v = parseFloat(el.getAttribute('aria-valuenow'));
+   if (e.key === 'ArrowLeft') { set(v - 5); e.preventDefault(); }
+   if (e.key === 'ArrowRight') { set(v + 5); e.preventDefault(); }
+  });
+ });
+</script>
+<script data-goatcounter="https://zenpano.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

@@ -63,17 +63,27 @@
   footer nav{display:flex; gap:14px; flex-wrap:wrap}
   footer a{color:var(--dim)}
   .lede a, .consent a{color:var(--teal)}
+header{display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap}
+.hright{display:flex; align-items:center; gap:14px; flex-wrap:wrap; justify-content:flex-end}
+header nav.main{display:flex; align-items:center; gap:14px; flex-wrap:wrap}
+header nav.main a{color:var(--dim); font:500 14px var(--display); text-decoration:none}
+header nav.main a:hover,header nav.main a:focus-visible,header nav.main a[aria-current]{color:var(--text); text-decoration:underline}
+header nav.main a.triallink{color:var(--teal); font-weight:600}
+header nav.main a.buylink{color:var(--accent); font-weight:600}
+.kicker{font-family:var(--display); font-weight:600; font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:var(--accent)}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header>
     <a class="brand" href="./">zenpano</a>
+    <div class="hright"><nav class="main" aria-label="Primary"><a href="./" data-t="nhome">Home</a><a href="dji-360-panorama.html" data-t="nguide">Guide</a><a href="dji-360-settings.html" data-t="ntips">Shooting tips</a><a href="./#download" class="triallink" data-t="ntrial">Free trial</a><a href="buy.html" class="buylink" data-t="nbuy" aria-current="page">Buy a licence</a></nav>
     <div class="lang" role="group" aria-label="Language">
       <button type="button" data-lang="en" aria-pressed="true">EN</button>
       <button type="button" data-lang="ro" aria-pressed="false">RO</button>
-    </div>
+    </div></div>
   </header>
+  <div class="kicker" data-t="kicker">For DJI Mini 2 · Mini 2 SE · Mini 4K · Mini 4 Pro · Mavic Air · beta: Mini 3 · Mini 3 Pro · Air 3 · Air 2S · Mini 5 Pro · Mavic Pro</div>
 
   <p class="sandbox" id="soon" hidden data-t="soon">Licence sales open soon. Until then the trial is free to use, with no limits.</p>
   <p class="sandbox" id="sbx" hidden data-t="sb">TEST PAGE · Paddle sandbox · no real payments. Test card 4242 4242 4242 4242, any future date, CVC 100.</p>
@@ -149,6 +159,8 @@
   var T = {
     ro: {
       sb: 'PAGINĂ DE TEST · Paddle sandbox · fără plăți reale. Card de test 4242 4242 4242 4242, orice dată viitoare, CVC 100.',
+      nhome: 'Acasă', nguide: 'Ghid', ntips: 'Sfaturi de fotografiere', ntrial: 'Probă gratuită', nbuy: 'Cumpără o licență',
+      kicker: 'Pentru DJI Mini 2 · Mini 2 SE · Mini 4K · Mini 4 Pro · Mavic Air · în beta: Mini 3 · Mini 3 Pro · Air 3 · Air 2S · Mini 5 Pro · Mavic Pro',
       h1: 'Scoate watermark-ul: cumpără o cheie de licență',
       lede: 'O singură plată, fără abonament. Cheia merge fără internet și se face pentru dispozitivul tău, așa că avem nevoie de codul lui: deschide «Activează» în zenpano și copiază codul dispozitivului afișat acolo.',
       okh: 'Mulțumim, plata a trecut',
