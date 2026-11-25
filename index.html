@@ -63,6 +63,7 @@
        touch-action:pan-y; user-select:none; cursor:ew-resize; --x:50%}
   .cmp img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; pointer-events:none}
   .cmp .top{clip-path:inset(0 0 0 var(--x))}
+  .cmp.tall{aspect-ratio:950/1400; max-width:min(100%,560px)}
   .cmp .bar{position:absolute; top:0; bottom:0; left:var(--x); width:2px; margin-left:-1px; background:var(--text); box-shadow:0 0 0 1px rgba(0,0,0,.35)}
   .cmp .knob{position:absolute; top:50%; left:var(--x); width:40px; height:40px; margin:-20px 0 0 -20px; border-radius:50%;
              background:var(--accent); color:#171009; display:grid; place-items:center; font:700 15px var(--mono); box-shadow:0 2px 10px rgba(0,0,0,.5)}
@@ -164,6 +165,20 @@
   </section>
 
   <section>
+    <h2 data-t="sunh">The sky next to the sun</h2>
+    <p data-t="sunp">Same flight, same view, facing the sun. DJI Fly burns the sky out to white; from the RAW frames, zenpano keeps the clouds and the colour, and the town below stays sharp.</p>
+    <figure>
+      <div class="cmp tall" tabindex="0" role="slider" aria-label="Compare: sky next to the sun" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+        <img src="img/soare_fly.jpg" width="950" height="1400" loading="lazy" alt="Town below a hill with the sun above it in the DJI Fly sphere: the sky around the sun is plain white">
+        <img class="top" src="img/soare_zen.jpg" width="950" height="1400" loading="lazy" alt="The same view in zenpano: blue sky, clouds around the sun and sharp houses">
+        <span class="tag l">DJI Fly</span><span class="tag r">zenpano</span>
+        <div class="bar"></div><div class="knob">⇆</div>
+      </div>
+      <figcaption><span data-t="sunc">DJI Mini 2 · DJI Fly sphere 4096 px wide · zenpano from the DNG frames, 16384 px wide</span></figcaption>
+    </figure>
+  </section>
+
+  <section>
     <h2 data-t="rh">Fix a seam yourself</h2>
     <p data-t="rp">When two frames don't meet cleanly, mark the spot and pick the version that looks right. Left: as stitched. Right: after one repair, done in the app.</p>
     <div class="list">
@@ -181,7 +196,7 @@
 
   <section>
     <h2 data-t="ph">Little planet</h2>
-    <p data-t="pp">One tap after the sphere is done: the ground in the middle, the sky around it. It is made as fine as the panorama itself, about 16000 × 16000 px, so you can still zoom in.</p>
+    <p data-t="pp">One tap after the sphere is done: the ground in the middle, the sky around it. It is made as fine as the panorama itself, about 16000 × 16000 px, so you can still zoom in, or smaller (8192, 4096 px, or a file size limit) for sites that cap uploads: 9 MB by default, so Facebook takes it as an ordinary photo.</p>
     <figure>
       <img class="shot planet" src="img/planeta.jpg" width="1400" height="1400" loading="lazy" alt="A little planet made from a 360 sphere: a park with a small lake in the middle, trees and houses around it and the sky on the outside">
       <figcaption><span data-t="pc">The same park · DJI Mini 2 · made from the finished sphere</span></figcaption>
@@ -223,6 +238,11 @@
     </div>
   </section>
 
+  <section id="lightroom">
+    <h2 data-t="lrh">Edit the frames in Lightroom first</h2>
+    <p data-t="lrp">On Windows, zenpano also stitches the frames you edited in Lightroom Classic. Develop one frame, sync the settings to the others, and export them with the zenpano plug-in: it saves them as 16-bit TIFF, opens zenpano and starts the stitching. When you close zenpano, the finished panorama is added back to your catalog, as JPG and, with a licence, as a 16-bit TIFF for further editing. The plug-in comes with the Windows download.</p>
+  </section>
+
   <section id="video">
     <h2 data-t="vh">See it in action</h2>
     <p data-t="vp">From the drone's files to a finished sphere on Windows, with subtitles in 9 languages. The same flight is also stitched on an Android phone.</p>
@@ -246,7 +266,7 @@
       <div class="dlcard">
         <h3 data-t="dlwn">Windows · Mini 2 / 2 SE / 4K / Mini 4 Pro / Mavic Air · beta: Mini 3 / 3 Pro / Air 3 / Air 2S / Mini 5 Pro / Mavic Pro</h3>
         <a class="btn" href="https://github.com/sebip/zenpano/releases/latest" target="_blank" rel="noopener" data-t="dlwb">Download for Windows</a>
-        <p class="warn" data-t="dlww">A single .exe, no install. Windows SmartScreen may warn: «More info» → «Run anyway».</p>
+        <p class="warn" data-t="dlww">A single .exe, no install. Windows SmartScreen may warn: «More info» → «Run anyway». The Lightroom Classic plug-in is the .zip next to it.</p>
       </div>
     </div>
   </section>
@@ -313,7 +333,7 @@
     rp: 'Când două cadre nu se întâlnesc curat, marchezi locul și alegi varianta care arată bine. Stânga: cum a ieșit lipirea. Dreapta: după o reparație, făcută în aplicație.',
     tb: 'Înainte', ta: 'După reparație', c4: 'Aleea din parc',
     ph: 'Planetă mică',
-    pp: 'O apăsare după ce sfera e gata: solul în mijloc, cerul în jur. Iese la finețea panoramei, circa 16000 × 16000 px, deci poți mări în continuare.',
+    pp: 'O apăsare după ce sfera e gata: solul în mijloc, cerul în jur. Iese la finețea panoramei, circa 16000 × 16000 px, deci poți mări în continuare, sau mai mică (8192, 4096 px, ori o limită de mărime a fișierului) pentru site-urile care limitează încărcarea: implicit 9 MB, ca Facebook s-o primească drept fotografie obișnuită.',
     pc: 'Același parc · DJI Mini 2 · făcută din sfera terminată',
     ch: 'Unghi larg și alte formate din sferă',
     cp: 'După ce sfera e gata, Decupează îți dă o fotografie cu unghi larg în orice direcție tragi, cu liniile drepte păstrate drepte, o bandă de 180° sau un dreptunghi în formatul ales. Panorama rămâne neatinsă.',
@@ -339,7 +359,12 @@
     dlan: 'Android · Mini 2 / 2 SE / 4K / Mini 4 Pro / Mavic Air · beta: Mini 3 / 3 Pro / Air 3 / Air 2S / Mini 5 Pro / Mavic Pro', dlab: 'Descarcă APK-ul',
     dlaw: 'Se instalează din afara Play Store: permite «instalarea din surse necunoscute» când întreabă Android.',
     dlwn: 'Windows · Mini 2 / 2 SE / 4K / Mini 4 Pro / Mavic Air · beta: Mini 3 / 3 Pro / Air 3 / Air 2S / Mini 5 Pro / Mavic Pro', dlwb: 'Descarcă pentru Windows',
-    dlww: 'Un singur .exe, fără instalare. Windows SmartScreen poate avertiza: «Mai multe informații» → «Rulează oricum».'
+    dlww: 'Un singur .exe, fără instalare. Windows SmartScreen poate avertiza: «Mai multe informații» → «Rulează oricum». Plugin-ul pentru Lightroom Classic e arhiva .zip de lângă el.',
+    sunh: 'Cerul de lângă soare',
+    sunp: 'Același zbor, aceeași vedere, cu fața spre soare. DJI Fly arde cerul până la alb; din cadrele RAW, zenpano păstrează norii și culoarea, iar orașul de dedesubt rămâne clar.',
+    sunc: 'DJI Mini 2 · sfera DJI Fly, 4096 px lățime · zenpano din cadrele DNG, 16384 px lățime',
+    lrh: 'Editezi întâi cadrele în Lightroom',
+    lrp: 'Pe Windows, zenpano lipește și cadrele editate în Lightroom Classic. Developezi un cadru, sincronizezi setările pe celelalte și le exporți cu plugin-ul zenpano: le salvează ca TIFF pe 16 biți, deschide zenpano și pornește lipirea. Când închizi zenpano, panorama terminată intră înapoi în catalog, ca JPG și, cu licență, ca TIFF pe 16 biți pentru editare mai departe. Plugin-ul vine cu descărcarea pentru Windows.'
   };
   var EN = {};
   document.querySelectorAll('[data-t]').forEach(function (n) { EN[n.dataset.t] = n.textContent; });
